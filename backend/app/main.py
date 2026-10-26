@@ -16,6 +16,7 @@ from app.api.routes import login as login_route
 from app.api.routes import queue as queue_route
 from app.api.routes import quotes as quotes_route
 from app.api.routes import repair_orders as repair_orders_route
+from app.api.routes import services as services_route
 from app.api.routes import slots as slots_route
 from app.api.routes import technicians as technicians_route
 from app.api.routes import work_schedules as work_schedules_route
@@ -86,6 +87,7 @@ app.include_router(devices_route.router, prefix="/api", include_in_schema=False)
 app.include_router(
     repair_orders_route.router, prefix="/api", include_in_schema=False
 )
+app.include_router(services_route.router, prefix="/api", include_in_schema=False)
 app.include_router(login_route.router, prefix="/api", include_in_schema=False)
 if FRONTEND_DIR.exists():
     app.frontend("/", directory=FRONTEND_DIR)

@@ -6,7 +6,7 @@
 - PARTIAL: UID 771 — Frontend lưu và làm mới access token bằng refresh-token rotation đã có từ FastAPI; mock smoke test PASS, chưa chạy lại toàn bộ suite auth tích hợp.
 - PARTIAL: UID 778, 779, 781, 824, 825 — các màn hình/API đăng ký, đăng nhập, hồ sơ đã có; cần chạy lại acceptance suite sau thay đổi token.
 - TODO: Luồng đặt lịch (Sprint 3), vận hành lịch hẹn (Sprint 4), tiếp nhận/báo giá/sửa chữa (Sprint 5).
-- BLOCKED: Payment, invoice, review, notification, service management, statistics và revenue chưa có API contract để frontend tích hợp thật.
+- BLOCKED: Luồng đặt lịch đầy đủ cần API danh sách dịch vụ công khai; `/slots/available` bắt buộc `service_id`, còn `/technicians` chỉ cho nhân viên. Payment, invoice, review, notification, service management, statistics và revenue cũng chưa có API contract để frontend tích hợp thật.
 
 ## API đã tích hợp thật
 

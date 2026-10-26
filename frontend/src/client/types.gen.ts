@@ -1590,6 +1590,54 @@ export type RepairStatusUpdateResponse = {
 };
 
 /**
+ * ServicePublic
+ */
+export type ServicePublic = {
+    /**
+     * Name
+     */
+    name: string;
+    /**
+     * Description
+     */
+    description?: string | null;
+    /**
+     * Base Price
+     */
+    base_price?: number;
+    /**
+     * Estimated Duration Minutes
+     */
+    estimated_duration_minutes?: number;
+    /**
+     * Is Active
+     */
+    is_active?: boolean;
+    /**
+     * Id
+     */
+    id: string;
+    /**
+     * Created At
+     */
+    created_at?: string | null;
+};
+
+/**
+ * ServicesPublic
+ */
+export type ServicesPublic = {
+    /**
+     * Data
+     */
+    data: Array<ServicePublic>;
+    /**
+     * Count
+     */
+    count: number;
+};
+
+/**
  * SlotCheckRequest
  */
 export type SlotCheckRequest = {
@@ -4236,6 +4284,40 @@ export type repairOrdersAssignTechnicianResponses = {
 };
 
 export type repairOrdersAssignTechnicianResponse = repairOrdersAssignTechnicianResponses[keyof repairOrdersAssignTechnicianResponses];
+
+export type servicesReadPublicServicesData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Skip
+         */
+        skip?: number;
+        /**
+         * Limit
+         */
+        limit?: number;
+    };
+    url: '/api/v1/services';
+};
+
+export type servicesReadPublicServicesErrors = {
+    /**
+     * Validation Error
+     */
+    422: HTTPValidationError;
+};
+
+export type servicesReadPublicServicesError = servicesReadPublicServicesErrors[keyof servicesReadPublicServicesErrors];
+
+export type servicesReadPublicServicesResponses = {
+    /**
+     * Successful Response
+     */
+    200: ServicesPublic;
+};
+
+export type servicesReadPublicServicesResponse = servicesReadPublicServicesResponses[keyof servicesReadPublicServicesResponses];
 
 export type privateCreateUserData = {
     body: PrivateUserCreate;

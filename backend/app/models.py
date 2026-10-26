@@ -318,6 +318,11 @@ class ServicePublic(ServiceBase):
     created_at: datetime | None = None
 
 
+class ServicesPublic(SQLModel):
+    data: list[ServicePublic]
+    count: int
+
+
 # ============================================================================
 # FIXPHONE ENTITY: TECHNICIAN
 # ============================================================================
