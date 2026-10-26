@@ -5,14 +5,16 @@
 - DONE: UID 767 (layout), UID 770 (HTTP client), UID 772 (landing page).
 - PARTIAL: UID 771 — Frontend lưu và làm mới access token bằng refresh-token rotation đã có từ FastAPI; mock smoke test PASS, chưa chạy lại toàn bộ suite auth tích hợp.
 - PARTIAL: UID 778, 779, 781, 824, 825 — các màn hình/API đăng ký, đăng nhập, hồ sơ đã có; cần chạy lại acceptance suite sau thay đổi token.
-- TODO: Luồng đặt lịch (Sprint 3), vận hành lịch hẹn (Sprint 4), tiếp nhận/báo giá/sửa chữa (Sprint 5).
-- BLOCKED: Luồng đặt lịch đầy đủ cần API danh sách dịch vụ công khai; `/slots/available` bắt buộc `service_id`, còn `/technicians` chỉ cho nhân viên. Payment, invoice, review, notification, service management, statistics và revenue cũng chưa có API contract để frontend tích hợp thật.
+- DONE: Luồng tạo lịch cơ bản — khách chọn dịch vụ, ngày, khung giờ, thông tin liên hệ và gửi `POST /api/v1/appointments` bằng API thật. GET `/api/v1/services` chỉ trả dịch vụ đang hoạt động; khách không phải chọn kỹ thuật viên.
+- TODO: Danh sách/chi tiết/đổi/hủy lịch cá nhân (Sprint 3–4), tiếp nhận/báo giá/sửa chữa (Sprint 5).
+- BLOCKED: Chưa có endpoint danh sách lịch của người dùng đăng nhập; `/appointments/history` chỉ cho nhân viên và không được dùng cho khách. Payment, invoice, review, notification, service management, statistics và revenue cũng chưa có API contract để frontend tích hợp thật.
 
 ## API đã tích hợp thật
 
 - Authentication: login, register, current user, refresh token, revoke refresh token.
 - User profile: read/update current user và đổi mật khẩu.
 - HTTP client: Bearer access token, refresh một lần khi nhận 401, không tự logout cho 403/404/422/500.
+- Booking: danh sách dịch vụ công khai, khung giờ còn trống và tạo lịch.
 
 ## Kiểm thử gần nhất
 

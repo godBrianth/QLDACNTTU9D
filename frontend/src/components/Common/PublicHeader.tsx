@@ -13,6 +13,9 @@ export function PublicHeader() {
       >
         <Logo />
         <div className="flex items-center gap-2">
+          <Button asChild size="sm" variant="ghost">
+            <Link to="/booking">Đặt lịch sửa chữa</Link>
+          </Button>
           <Appearance />
           <Button asChild size="sm" variant="ghost">
             <Link to="/login">Đăng nhập</Link>
