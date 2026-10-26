@@ -69,17 +69,23 @@ app.add_middleware(
 
 app.include_router(api_router, prefix=settings.API_V1_STR)
 # Direct /api route aliases matching proposed endpoints without /v1
-app.include_router(slots_route.router, prefix="/api")
-app.include_router(appointments_route.router, prefix="/api")
-app.include_router(appointments_route.bookings_router, prefix="/api")
-app.include_router(customers_route.router, prefix="/api")
-app.include_router(technicians_route.router, prefix="/api")
-app.include_router(work_schedules_route.router, prefix="/api")
-app.include_router(queue_route.router, prefix="/api")
-app.include_router(intake_route.router, prefix="/api")
-app.include_router(quotes_route.router, prefix="/api")
-app.include_router(devices_route.router, prefix="/api")
-app.include_router(repair_orders_route.router, prefix="/api")
-app.include_router(login_route.router, prefix="/api")
+app.include_router(slots_route.router, prefix="/api", include_in_schema=False)
+app.include_router(appointments_route.router, prefix="/api", include_in_schema=False)
+app.include_router(
+    appointments_route.bookings_router, prefix="/api", include_in_schema=False
+)
+app.include_router(customers_route.router, prefix="/api", include_in_schema=False)
+app.include_router(technicians_route.router, prefix="/api", include_in_schema=False)
+app.include_router(
+    work_schedules_route.router, prefix="/api", include_in_schema=False
+)
+app.include_router(queue_route.router, prefix="/api", include_in_schema=False)
+app.include_router(intake_route.router, prefix="/api", include_in_schema=False)
+app.include_router(quotes_route.router, prefix="/api", include_in_schema=False)
+app.include_router(devices_route.router, prefix="/api", include_in_schema=False)
+app.include_router(
+    repair_orders_route.router, prefix="/api", include_in_schema=False
+)
+app.include_router(login_route.router, prefix="/api", include_in_schema=False)
 if FRONTEND_DIR.exists():
     app.frontend("/", directory=FRONTEND_DIR)
