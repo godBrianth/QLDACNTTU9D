@@ -43,6 +43,9 @@ const useAuth = () => {
       body: data,
     })
     localStorage.setItem("access_token", response.data.access_token)
+    if (response.data.refresh_token) {
+      localStorage.setItem("refresh_token", response.data.refresh_token)
+    }
   }
 
   const loginMutation = useMutation({
@@ -54,7 +57,14 @@ const useAuth = () => {
   })
 
   const logout = () => {
+    const refreshToken = localStorage.getItem("refresh_token")
     localStorage.removeItem("access_token")
+    localStorage.removeItem("refresh_token")
+    if (refreshToken) {
+      void LoginService.revokeRefreshToken({
+        body: { refresh_token: refreshToken },
+      }).catch(() => undefined)
+    }
     navigate({ to: "/login" })
   }
 

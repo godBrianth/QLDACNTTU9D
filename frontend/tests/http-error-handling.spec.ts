@@ -41,6 +41,70 @@ test("401 expired token clears the token and redirects once", async ({
     .toBeNull()
 })
 
+test("401 refreshes a valid session once and retries the request", async ({
+  page,
+}) => {
+  await setAccessTokenBeforeNavigation(page)
+  await page.evaluate(() => {
+    localStorage.setItem("refresh_token", "valid-refresh-token")
+  })
+
+  let currentUserRequests = 0
+  let refreshRequests = 0
+  await page.route("**/api/v1/users/me", (route) => {
+    currentUserRequests += 1
+    if (currentUserRequests === 1) {
+      return route.fulfill({
+        body: JSON.stringify({ detail: "Expired access token" }),
+        contentType: "application/json",
+        status: 401,
+      })
+    }
+
+    return route.fulfill({
+      body: JSON.stringify({
+        email: "customer@example.com",
+        full_name: "FixCare Customer",
+        id: "00000000-0000-0000-0000-000000000001",
+        is_active: true,
+        is_superuser: false,
+        role: "customer",
+      }),
+      contentType: "application/json",
+      status: 200,
+    })
+  })
+  await page.route("**/api/v1/login/refresh-token", (route) => {
+    refreshRequests += 1
+    return route.fulfill({
+      body: JSON.stringify({
+        access_token: "refreshed-access-token",
+        refresh_token: "rotated-refresh-token",
+        token_type: "bearer",
+      }),
+      contentType: "application/json",
+      status: 200,
+    })
+  })
+
+  await page.goto("/settings")
+
+  await expect(page).toHaveURL(/\/settings$/)
+  await expect(
+    page.getByLabel("My profile").getByText("FixCare Customer", {
+      exact: true,
+    }),
+  ).toBeVisible()
+  await expect
+    .poll(() => page.evaluate(() => localStorage.getItem("access_token")))
+    .toBe("refreshed-access-token")
+  await expect
+    .poll(() => page.evaluate(() => localStorage.getItem("refresh_token")))
+    .toBe("rotated-refresh-token")
+  expect(currentUserRequests).toBeGreaterThanOrEqual(2)
+  expect(refreshRequests).toBe(1)
+})
+
 test("401 invalid login keeps the login page and shows the API message", async ({
   page,
 }) => {

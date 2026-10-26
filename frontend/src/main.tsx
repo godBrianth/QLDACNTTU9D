@@ -5,9 +5,11 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query"
 import { createRouter, RouterProvider } from "@tanstack/react-router"
+import { isAxiosError } from "axios"
 import { StrictMode } from "react"
 import ReactDOM from "react-dom/client"
 import { toast } from "sonner"
+import { LoginService } from "./client"
 import { client } from "./client/client.gen"
 import { ThemeProvider } from "./components/theme-provider"
 import { Toaster } from "./components/ui/sonner"
@@ -19,6 +21,65 @@ client.setConfig({
   baseURL: import.meta.env.VITE_API_URL ?? "",
   auth: () => localStorage.getItem("access_token") || "",
 })
+
+let refreshPromise: Promise<string | null> | null = null
+
+const refreshAccessToken = async (): Promise<string | null> => {
+  const refreshToken = localStorage.getItem("refresh_token")
+  if (!refreshToken) return null
+
+  if (!refreshPromise) {
+    refreshPromise = LoginService.refreshAccessToken({
+      body: { refresh_token: refreshToken },
+    })
+      .then(({ data }) => {
+        localStorage.setItem("access_token", data.access_token)
+        if (data.refresh_token) {
+          localStorage.setItem("refresh_token", data.refresh_token)
+        }
+        return data.access_token
+      })
+      .catch(() => {
+        localStorage.removeItem("refresh_token")
+        return null
+      })
+      .finally(() => {
+        refreshPromise = null
+      })
+  }
+
+  return refreshPromise
+}
+
+client.instance.interceptors.response.use(
+  (response) => response,
+  async (error: unknown) => {
+    if (
+      !isAxiosError(error) ||
+      error.response?.status !== 401 ||
+      !error.config
+    ) {
+      return Promise.reject(error)
+    }
+
+    const requestUrl = error.config.url ?? ""
+    const isRefreshRequest = requestUrl.includes("/login/refresh-token")
+    const alreadyRetried = error.config.headers?.["x-fixcare-retry"] === "true"
+
+    if (isRefreshRequest || alreadyRetried) {
+      return Promise.reject(error)
+    }
+
+    const accessToken = await refreshAccessToken()
+    if (!accessToken) {
+      return Promise.reject(error)
+    }
+
+    error.config.headers.set("Authorization", `Bearer ${accessToken}`)
+    error.config.headers.set("x-fixcare-retry", "true")
+    return client.instance.request(error.config)
+  },
+)
 
 let isRedirectingToLogin = false
 
