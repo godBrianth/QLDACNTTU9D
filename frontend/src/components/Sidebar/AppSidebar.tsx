@@ -1,4 +1,4 @@
-import { Briefcase, Home, Users } from "lucide-react"
+import { Home, Users } from "lucide-react"
 
 import { SidebarAppearance } from "@/components/Common/Appearance"
 import { Logo } from "@/components/Common/Logo"
@@ -10,18 +10,19 @@ import {
 } from "@/components/ui/sidebar"
 import useAuth from "@/hooks/useAuth"
 import { type Item, Main } from "./Main"
+import { getRoleLabel } from "./roles"
 import { User } from "./User"
 
-const baseItems: Item[] = [
-  { icon: Home, title: "Dashboard", path: "/" },
-  { icon: Briefcase, title: "Items", path: "/items" },
-]
+const baseItems: Item[] = [{ icon: Home, title: "Tổng quan", path: "/app" }]
 
 export function AppSidebar() {
   const { user: currentUser } = useAuth()
 
   const items = currentUser?.is_superuser
-    ? [...baseItems, { icon: Users, title: "Admin", path: "/admin" }]
+    ? [
+        ...baseItems,
+        { icon: Users, title: "Quản trị tài khoản", path: "/admin" },
+      ]
     : baseItems
 
   return (
@@ -30,7 +31,10 @@ export function AppSidebar() {
         <Logo variant="responsive" />
       </SidebarHeader>
       <SidebarContent>
-        <Main items={items} />
+        <Main
+          items={items}
+          label={getRoleLabel(currentUser?.role, currentUser?.is_superuser)}
+        />
       </SidebarContent>
       <SidebarFooter>
         <SidebarAppearance />
