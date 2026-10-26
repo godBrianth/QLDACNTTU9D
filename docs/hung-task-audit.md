@@ -39,7 +39,7 @@ Nguồn task: `docs/project/Task_cua_Hung.xlsx`; nguồn nghiệp vụ: `docs/pr
 | 776 | 2.2.37 | Sprint 1 | Tạo trang danh sách dịch vụ | Chưa thực hiện — Items là code mẫu, không phải Service. | `routes/_layout/items.tsx` (chỉ mẫu) | Service list **thiếu** | UX, React, API, QA | AC-READ | TC-UI |
 | 765 | 2.2.43 | Sprint 1 | Thiết lập routing | Hoàn thành một phần — TanStack routes có, chưa có route nghiệp vụ khách hàng. | `routes/`, `routeTree.gen.ts` | — | React, QA | AC-CFG | TC-CFG |
 | 768 | 2.2.49 | Sprint 1 | Thiết lập responsive grid | Hoàn thành một phần — Tailwind responsive xuất hiện cục bộ, chưa có grid/system được xác minh. | `index.css`, `_layout.tsx` | — | UX, React, QA | AC-UI | TC-UI |
-| 772 | 2.2.54 | Sprint 1 | Tạo trang Landing | Chưa thực hiện. | `routes/` | — | UX, React, QA | AC-UI | TC-UI |
+| 772 | 2.2.54 | Sprint 1 | Tạo trang Landing | Đã xác minh hoàn thành — Landing FixCare tại `/` có hero, giá trị định hướng, quy trình 4 bước, lợi ích theo vai trò và CTA thật; build, typecheck, Biome và Playwright liên quan đạt. | `routes/index.tsx`, `components/landing/`, `tests/landing.spec.ts` | — | UX, React, QA | AC-UI | TC-UI |
 | 773 | 2.2.57 | Sprint 1 | Tạo Header | Hoàn thành một phần — header nội bộ có, header công khai/CTA chưa có. | `routes/_layout.tsx` | — | UX, React, QA | AC-UI | TC-UI |
 | 774 | 2.2.60 | Sprint 1 | Tạo Footer | Chưa đủ bằng chứng — `Footer.tsx` tồn tại nhưng chưa kiểm tra UI/route. | `components/Common/Footer.tsx` | — | UX, React, QA | AC-UI | TC-UI |
 | 775 | 2.2.63 | Sprint 1 | Tạo trang giới thiệu cửa hàng | Chưa thực hiện. | `routes/` | — | UX, React, QA | AC-UI | TC-UI |
