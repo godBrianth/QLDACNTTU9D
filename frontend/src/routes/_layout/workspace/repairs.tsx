@@ -248,7 +248,7 @@ function Repairs() {
               {active && (
                 <Panel title="Lập báo giá">
                   <ActionForm
-                key={a.id}
+                    key={a.id}
                     fields={quoteFields}
                     submitLabel="Tạo báo giá gửi khách"
                     onSubmit={(v) =>

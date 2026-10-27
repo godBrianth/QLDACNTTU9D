@@ -12,11 +12,17 @@ export function PublicHeader() {
         className="mx-auto flex min-h-16 max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:px-8"
       >
         <Logo />
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
+          <Button asChild size="sm" variant="ghost">
+            <Link to="/services">Dịch vụ</Link>
+          </Button>
           <Button asChild size="sm" variant="ghost">
             <Link to="/booking">Đặt lịch sửa chữa</Link>
           </Button>
           <Appearance />
+          <Button asChild size="sm" variant="ghost">
+            <Link to="/about">Giới thiệu</Link>
+          </Button>
           <Button asChild size="sm" variant="ghost">
             <Link to="/login">Đăng nhập</Link>
           </Button>

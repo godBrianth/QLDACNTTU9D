@@ -7,6 +7,7 @@ from app.core.logging import get_logger
 from app.models import (
     Appointment,
     AppointmentStatus,
+    Notification,
     AssignTechnicianData,
     AssignTechnicianRequest,
     RepairStatusHistory,
@@ -114,6 +115,7 @@ def update_repair_status(
         )
         session.add(history)
 
+        session.add(Notification(customer_id=appointment.customer_id, title="Cập nhật sửa chữa", message=f"Phiếu {appointment.appointment_number} chuyển sang {new_status}."))
         appointment.status = new_status
         appointment.updated_at = now
         session.add(appointment)
@@ -191,7 +193,10 @@ def assign_technician_to_repair(
         from app.services.access_service import is_reception
 
         if not is_reception(current_user):
-            raise HTTPException(status_code=403, detail="Chỉ nhân viên tiếp nhận hoặc quản lý được phân công")
+            raise HTTPException(
+                status_code=403,
+                detail="Chỉ nhân viên tiếp nhận hoặc quản lý được phân công",
+            )
         if appointment.status in ("COMPLETED", "CANCELLED"):
             raise HTTPException(
                 status_code=status.HTTP_409_CONFLICT,

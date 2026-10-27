@@ -1019,6 +1019,134 @@ export type HTTPValidationError = {
 };
 
 /**
+ * InvoiceDetail
+ */
+export type InvoiceDetail = {
+    /**
+     * Invoice Number
+     */
+    invoice_number: string;
+    /**
+     * Subtotal
+     */
+    subtotal?: number;
+    /**
+     * Discount Amount
+     */
+    discount_amount?: number;
+    /**
+     * Tax Amount
+     */
+    tax_amount?: number;
+    /**
+     * Total Amount
+     */
+    total_amount?: number;
+    /**
+     * Status
+     */
+    status?: string;
+    /**
+     * Issue Date
+     */
+    issue_date?: string;
+    /**
+     * Due Date
+     */
+    due_date?: string | null;
+    /**
+     * Notes
+     */
+    notes?: string | null;
+    /**
+     * Id
+     */
+    id: string;
+    /**
+     * Appointment Id
+     */
+    appointment_id: string;
+    /**
+     * Customer Id
+     */
+    customer_id: string;
+    /**
+     * Created At
+     */
+    created_at?: string | null;
+    /**
+     * Items
+     */
+    items: Array<InvoiceItemPublic>;
+    /**
+     * Payments
+     */
+    payments: Array<PaymentPublic>;
+    /**
+     * Paid Amount
+     */
+    paid_amount: number;
+    /**
+     * Balance
+     */
+    balance: number;
+};
+
+/**
+ * InvoiceIssue
+ */
+export type InvoiceIssue = {
+    /**
+     * Quote Id
+     */
+    quote_id: string;
+};
+
+/**
+ * InvoiceItemPublic
+ */
+export type InvoiceItemPublic = {
+    /**
+     * Item Name
+     */
+    item_name: string;
+    /**
+     * Unit Price
+     */
+    unit_price?: number;
+    /**
+     * Quantity
+     */
+    quantity?: number;
+    /**
+     * Total Price
+     */
+    total_price?: number;
+    /**
+     * Id
+     */
+    id: string;
+    /**
+     * Invoice Id
+     */
+    invoice_id: string;
+};
+
+/**
+ * InvoicesPage
+ */
+export type InvoicesPage = {
+    /**
+     * Data
+     */
+    data: Array<InvoiceDetail>;
+    /**
+     * Count
+     */
+    count: number;
+};
+
+/**
  * ItemCreate
  */
 export type ItemCreate = {
@@ -1097,6 +1225,20 @@ export type Message = {
 };
 
 /**
+ * MonthRevenue
+ */
+export type MonthRevenue = {
+    /**
+     * Month
+     */
+    month: string;
+    /**
+     * Amount
+     */
+    amount: number;
+};
+
+/**
  * NewPassword
  */
 export type NewPassword = {
@@ -1108,6 +1250,130 @@ export type NewPassword = {
      * New Password
      */
     new_password: string;
+};
+
+/**
+ * NotificationPublic
+ */
+export type NotificationPublic = {
+    /**
+     * Title
+     */
+    title: string;
+    /**
+     * Message
+     */
+    message: string;
+    /**
+     * Notification Type
+     */
+    notification_type?: string;
+    /**
+     * Is Read
+     */
+    is_read?: boolean;
+    /**
+     * Id
+     */
+    id: string;
+    /**
+     * Customer Id
+     */
+    customer_id?: string | null;
+    /**
+     * User Id
+     */
+    user_id?: string | null;
+    /**
+     * Created At
+     */
+    created_at?: string | null;
+};
+
+/**
+ * NotificationsPage
+ */
+export type NotificationsPage = {
+    /**
+     * Data
+     */
+    data: Array<NotificationPublic>;
+    /**
+     * Count
+     */
+    count: number;
+    /**
+     * Unread Count
+     */
+    unread_count: number;
+};
+
+/**
+ * PaymentPublic
+ */
+export type PaymentPublic = {
+    /**
+     * Payment Number
+     */
+    payment_number: string;
+    /**
+     * Amount
+     */
+    amount: number;
+    /**
+     * Payment Method
+     */
+    payment_method: string;
+    /**
+     * Payment Status
+     */
+    payment_status?: string;
+    /**
+     * Transaction Reference
+     */
+    transaction_reference?: string | null;
+    /**
+     * Paid At
+     */
+    paid_at?: string;
+    /**
+     * Notes
+     */
+    notes?: string | null;
+    /**
+     * Id
+     */
+    id: string;
+    /**
+     * Invoice Id
+     */
+    invoice_id: string;
+    /**
+     * Created At
+     */
+    created_at?: string | null;
+};
+
+/**
+ * PaymentRecord
+ */
+export type PaymentRecord = {
+    /**
+     * Amount
+     */
+    amount: number | string;
+    /**
+     * Payment Method
+     */
+    payment_method: 'CASH' | 'BANK_TRANSFER';
+    /**
+     * Request Id
+     */
+    request_id: string;
+    /**
+     * Notes
+     */
+    notes?: string | null;
 };
 
 /**
@@ -1604,6 +1870,98 @@ export type RepairStatusUpdateResponse = {
 };
 
 /**
+ * ReviewPublic
+ */
+export type ReviewPublic = {
+    /**
+     * Rating
+     */
+    rating: number;
+    /**
+     * Comment
+     */
+    comment?: string | null;
+    /**
+     * Id
+     */
+    id: string;
+    /**
+     * Appointment Id
+     */
+    appointment_id: string;
+    /**
+     * Customer Id
+     */
+    customer_id: string;
+    /**
+     * Technician Id
+     */
+    technician_id?: string | null;
+    /**
+     * Created At
+     */
+    created_at?: string | null;
+};
+
+/**
+ * ReviewSubmit
+ */
+export type ReviewSubmit = {
+    /**
+     * Appointment Id
+     */
+    appointment_id: string;
+    /**
+     * Rating
+     */
+    rating: number;
+    /**
+     * Comment
+     */
+    comment?: string | null;
+};
+
+/**
+ * ReviewsPage
+ */
+export type ReviewsPage = {
+    /**
+     * Data
+     */
+    data: Array<ReviewPublic>;
+    /**
+     * Count
+     */
+    count: number;
+};
+
+/**
+ * ServiceInput
+ */
+export type ServiceInput = {
+    /**
+     * Name
+     */
+    name: string;
+    /**
+     * Description
+     */
+    description?: string | null;
+    /**
+     * Base Price
+     */
+    base_price: number;
+    /**
+     * Estimated Duration Minutes
+     */
+    estimated_duration_minutes: number;
+    /**
+     * Is Active
+     */
+    is_active?: boolean;
+};
+
+/**
  * ServicePublic
  */
 export type ServicePublic = {
@@ -1705,6 +2063,44 @@ export type SlotCheckResponse = {
      * Technician Id
      */
     technician_id?: string | null;
+};
+
+/**
+ * StatisticsResponse
+ */
+export type StatisticsResponse = {
+    /**
+     * Start Date
+     */
+    start_date: string;
+    /**
+     * End Date
+     */
+    end_date: string;
+    /**
+     * Receipts Total
+     */
+    receipts_total: number;
+    /**
+     * Outstanding Total
+     */
+    outstanding_total: number;
+    /**
+     * Appointment Count
+     */
+    appointment_count: number;
+    /**
+     * Completed Count
+     */
+    completed_count: number;
+    /**
+     * Customer Count
+     */
+    customer_count: number;
+    /**
+     * Monthly Revenue
+     */
+    monthly_revenue: Array<MonthRevenue>;
 };
 
 /**
@@ -4499,6 +4895,40 @@ export type repairOrdersAssignTechnicianResponses = {
 
 export type repairOrdersAssignTechnicianResponse = repairOrdersAssignTechnicianResponses[keyof repairOrdersAssignTechnicianResponses];
 
+export type servicesReadManagedServicesData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Skip
+         */
+        skip?: number;
+        /**
+         * Limit
+         */
+        limit?: number;
+    };
+    url: '/api/v1/services/manage';
+};
+
+export type servicesReadManagedServicesErrors = {
+    /**
+     * Validation Error
+     */
+    422: HTTPValidationError;
+};
+
+export type servicesReadManagedServicesError = servicesReadManagedServicesErrors[keyof servicesReadManagedServicesErrors];
+
+export type servicesReadManagedServicesResponses = {
+    /**
+     * Successful Response
+     */
+    200: ServicesPublic;
+};
+
+export type servicesReadManagedServicesResponse = servicesReadManagedServicesResponses[keyof servicesReadManagedServicesResponses];
+
 export type servicesReadPublicServicesData = {
     body?: never;
     path?: never;
@@ -4532,6 +4962,397 @@ export type servicesReadPublicServicesResponses = {
 };
 
 export type servicesReadPublicServicesResponse = servicesReadPublicServicesResponses[keyof servicesReadPublicServicesResponses];
+
+export type servicesCreateServiceData = {
+    body: ServiceInput;
+    path?: never;
+    query?: never;
+    url: '/api/v1/services';
+};
+
+export type servicesCreateServiceErrors = {
+    /**
+     * Validation Error
+     */
+    422: HTTPValidationError;
+};
+
+export type servicesCreateServiceError = servicesCreateServiceErrors[keyof servicesCreateServiceErrors];
+
+export type servicesCreateServiceResponses = {
+    /**
+     * Successful Response
+     */
+    201: ServicePublic;
+};
+
+export type servicesCreateServiceResponse = servicesCreateServiceResponses[keyof servicesCreateServiceResponses];
+
+export type servicesReadPublicServiceData = {
+    body?: never;
+    path: {
+        /**
+         * Service Id
+         */
+        service_id: string;
+    };
+    query?: never;
+    url: '/api/v1/services/{service_id}';
+};
+
+export type servicesReadPublicServiceErrors = {
+    /**
+     * Validation Error
+     */
+    422: HTTPValidationError;
+};
+
+export type servicesReadPublicServiceError = servicesReadPublicServiceErrors[keyof servicesReadPublicServiceErrors];
+
+export type servicesReadPublicServiceResponses = {
+    /**
+     * Successful Response
+     */
+    200: ServicePublic;
+};
+
+export type servicesReadPublicServiceResponse = servicesReadPublicServiceResponses[keyof servicesReadPublicServiceResponses];
+
+export type servicesUpdateServiceData = {
+    body: ServiceInput;
+    path: {
+        /**
+         * Service Id
+         */
+        service_id: string;
+    };
+    query?: never;
+    url: '/api/v1/services/{service_id}';
+};
+
+export type servicesUpdateServiceErrors = {
+    /**
+     * Validation Error
+     */
+    422: HTTPValidationError;
+};
+
+export type servicesUpdateServiceError = servicesUpdateServiceErrors[keyof servicesUpdateServiceErrors];
+
+export type servicesUpdateServiceResponses = {
+    /**
+     * Successful Response
+     */
+    200: ServicePublic;
+};
+
+export type servicesUpdateServiceResponse = servicesUpdateServiceResponses[keyof servicesUpdateServiceResponses];
+
+export type commerceReadInvoicesData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Skip
+         */
+        skip?: number;
+        /**
+         * Limit
+         */
+        limit?: number;
+    };
+    url: '/api/v1/invoices';
+};
+
+export type commerceReadInvoicesErrors = {
+    /**
+     * Validation Error
+     */
+    422: HTTPValidationError;
+};
+
+export type commerceReadInvoicesError = commerceReadInvoicesErrors[keyof commerceReadInvoicesErrors];
+
+export type commerceReadInvoicesResponses = {
+    /**
+     * Successful Response
+     */
+    200: InvoicesPage;
+};
+
+export type commerceReadInvoicesResponse = commerceReadInvoicesResponses[keyof commerceReadInvoicesResponses];
+
+export type commerceIssueInvoiceData = {
+    body: InvoiceIssue;
+    path?: never;
+    query?: never;
+    url: '/api/v1/invoices';
+};
+
+export type commerceIssueInvoiceErrors = {
+    /**
+     * Validation Error
+     */
+    422: HTTPValidationError;
+};
+
+export type commerceIssueInvoiceError = commerceIssueInvoiceErrors[keyof commerceIssueInvoiceErrors];
+
+export type commerceIssueInvoiceResponses = {
+    /**
+     * Successful Response
+     */
+    201: InvoiceDetail;
+};
+
+export type commerceIssueInvoiceResponse = commerceIssueInvoiceResponses[keyof commerceIssueInvoiceResponses];
+
+export type commerceReadInvoiceData = {
+    body?: never;
+    path: {
+        /**
+         * Invoice Id
+         */
+        invoice_id: string;
+    };
+    query?: never;
+    url: '/api/v1/invoices/{invoice_id}';
+};
+
+export type commerceReadInvoiceErrors = {
+    /**
+     * Validation Error
+     */
+    422: HTTPValidationError;
+};
+
+export type commerceReadInvoiceError = commerceReadInvoiceErrors[keyof commerceReadInvoiceErrors];
+
+export type commerceReadInvoiceResponses = {
+    /**
+     * Successful Response
+     */
+    200: InvoiceDetail;
+};
+
+export type commerceReadInvoiceResponse = commerceReadInvoiceResponses[keyof commerceReadInvoiceResponses];
+
+export type commerceRecordPaymentData = {
+    body: PaymentRecord;
+    path: {
+        /**
+         * Invoice Id
+         */
+        invoice_id: string;
+    };
+    query?: never;
+    url: '/api/v1/invoices/{invoice_id}/payments';
+};
+
+export type commerceRecordPaymentErrors = {
+    /**
+     * Validation Error
+     */
+    422: HTTPValidationError;
+};
+
+export type commerceRecordPaymentError = commerceRecordPaymentErrors[keyof commerceRecordPaymentErrors];
+
+export type commerceRecordPaymentResponses = {
+    /**
+     * Successful Response
+     */
+    200: InvoiceDetail;
+};
+
+export type commerceRecordPaymentResponse = commerceRecordPaymentResponses[keyof commerceRecordPaymentResponses];
+
+export type commerceHandoverDeviceData = {
+    body?: never;
+    path: {
+        /**
+         * Invoice Id
+         */
+        invoice_id: string;
+    };
+    query?: never;
+    url: '/api/v1/invoices/{invoice_id}/handover';
+};
+
+export type commerceHandoverDeviceErrors = {
+    /**
+     * Validation Error
+     */
+    422: HTTPValidationError;
+};
+
+export type commerceHandoverDeviceError = commerceHandoverDeviceErrors[keyof commerceHandoverDeviceErrors];
+
+export type commerceHandoverDeviceResponses = {
+    /**
+     * Successful Response
+     */
+    200: Message;
+};
+
+export type commerceHandoverDeviceResponse = commerceHandoverDeviceResponses[keyof commerceHandoverDeviceResponses];
+
+export type commerceReadStatisticsData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Start Date
+         */
+        start_date?: string | null;
+        /**
+         * End Date
+         */
+        end_date?: string | null;
+    };
+    url: '/api/v1/statistics';
+};
+
+export type commerceReadStatisticsErrors = {
+    /**
+     * Validation Error
+     */
+    422: HTTPValidationError;
+};
+
+export type commerceReadStatisticsError = commerceReadStatisticsErrors[keyof commerceReadStatisticsErrors];
+
+export type commerceReadStatisticsResponses = {
+    /**
+     * Successful Response
+     */
+    200: StatisticsResponse;
+};
+
+export type commerceReadStatisticsResponse = commerceReadStatisticsResponses[keyof commerceReadStatisticsResponses];
+
+export type commerceReadMyReviewsData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Skip
+         */
+        skip?: number;
+        /**
+         * Limit
+         */
+        limit?: number;
+    };
+    url: '/api/v1/reviews';
+};
+
+export type commerceReadMyReviewsErrors = {
+    /**
+     * Validation Error
+     */
+    422: HTTPValidationError;
+};
+
+export type commerceReadMyReviewsError = commerceReadMyReviewsErrors[keyof commerceReadMyReviewsErrors];
+
+export type commerceReadMyReviewsResponses = {
+    /**
+     * Successful Response
+     */
+    200: ReviewsPage;
+};
+
+export type commerceReadMyReviewsResponse = commerceReadMyReviewsResponses[keyof commerceReadMyReviewsResponses];
+
+export type commerceSubmitReviewData = {
+    body: ReviewSubmit;
+    path?: never;
+    query?: never;
+    url: '/api/v1/reviews';
+};
+
+export type commerceSubmitReviewErrors = {
+    /**
+     * Validation Error
+     */
+    422: HTTPValidationError;
+};
+
+export type commerceSubmitReviewError = commerceSubmitReviewErrors[keyof commerceSubmitReviewErrors];
+
+export type commerceSubmitReviewResponses = {
+    /**
+     * Successful Response
+     */
+    201: ReviewPublic;
+};
+
+export type commerceSubmitReviewResponse = commerceSubmitReviewResponses[keyof commerceSubmitReviewResponses];
+
+export type commerceReadNotificationsData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Skip
+         */
+        skip?: number;
+        /**
+         * Limit
+         */
+        limit?: number;
+    };
+    url: '/api/v1/notifications';
+};
+
+export type commerceReadNotificationsErrors = {
+    /**
+     * Validation Error
+     */
+    422: HTTPValidationError;
+};
+
+export type commerceReadNotificationsError = commerceReadNotificationsErrors[keyof commerceReadNotificationsErrors];
+
+export type commerceReadNotificationsResponses = {
+    /**
+     * Successful Response
+     */
+    200: NotificationsPage;
+};
+
+export type commerceReadNotificationsResponse = commerceReadNotificationsResponses[keyof commerceReadNotificationsResponses];
+
+export type commerceMarkNotificationReadData = {
+    body?: never;
+    path: {
+        /**
+         * Notification Id
+         */
+        notification_id: string;
+    };
+    query?: never;
+    url: '/api/v1/notifications/{notification_id}/read';
+};
+
+export type commerceMarkNotificationReadErrors = {
+    /**
+     * Validation Error
+     */
+    422: HTTPValidationError;
+};
+
+export type commerceMarkNotificationReadError = commerceMarkNotificationReadErrors[keyof commerceMarkNotificationReadErrors];
+
+export type commerceMarkNotificationReadResponses = {
+    /**
+     * Successful Response
+     */
+    200: NotificationPublic;
+};
+
+export type commerceMarkNotificationReadResponse = commerceMarkNotificationReadResponses[keyof commerceMarkNotificationReadResponses];
 
 export type privateCreateUserData = {
     body: PrivateUserCreate;

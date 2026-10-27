@@ -68,6 +68,7 @@ app.add_middleware(
     expose_headers=["X-Request-ID"],
 )
 
+# Keep the versioned API contract in one router (including commerce endpoints).
 app.include_router(api_router, prefix=settings.API_V1_STR)
 # Direct /api route aliases matching proposed endpoints without /v1
 app.include_router(slots_route.router, prefix="/api", include_in_schema=False)

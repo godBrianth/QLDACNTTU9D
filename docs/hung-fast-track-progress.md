@@ -21,6 +21,13 @@
 
 ## Kiểm thử gần nhất
 
+- Nhóm D commit `3c8fabc`.
+- Nhóm E: đã tích hợp hóa đơn từ báo giá đã duyệt sau khi hoàn tất sửa; thanh toán tiền mặt/chuyển khoản ghi nhận tại quầy có request_id chống lặp, khóa hóa đơn và chặn quá số dư; bàn giao; review theo owner; thông báo riêng; thống kê theo khoản thực thu; quản lý dịch vụ và role tài khoản. Không có tích hợp cổng thanh toán online (ngoài phạm vi DOCX).
+- Backend commerce/ownership: 6/6 PASS trên SQLite trong bộ nhớ với `FIXCARE_TEST_SQLITE=1`. Không dùng PostgreSQL thật cho test ghi dữ liệu. Frontend C–E E2E tổng thể đang chờ chạy.
+- Bổ sung API integration từ tạo lịch → tiếp nhận → báo giá → duyệt → kỹ thuật viên xử lý → hóa đơn → thu tiền → bàn giao: tổng backend mới 7/7 PASS trên SQLite. Playwright operations + điều hướng/reload appointments: 7/7 PASS bằng mock (không ghi DB thật).
+- UID 902: đã thêm workflow build và smoke API mock; chưa chạy GitHub Actions, PARTIAL. Không có push/deploy trong phiên này.
+- UID 776/777/775/798/799/800/801/814/815/818/821/822/823/2010/2014: đã có code, PARTIAL trước kiểm thử nghiệm thu.
+
 - Nhóm C commit `5f33005`: typecheck/build PASS; kiểm thử nghiệp vụ tổng thể NOT RUN.
 - Nhóm D: đã có trang `/workspace/repairs`, `/workspace/intake`, `/quotes`; thêm API list/detail repair, list/detail/reject quote theo owner/assignment, bắt buộc token khi đổi lịch. UID 795/796/797/806/807/808/809/810/811/813/820/2009: PARTIAL chờ kiểm thử; UI có code, chưa coi là nghiệm thu.
 

@@ -12,6 +12,7 @@ from app.models import (
     Appointment,
     Customer,
     Device,
+    Notification,
     QuotationCreate,
     QuotationDetail,
     QuotationItemDetail,
@@ -253,6 +254,7 @@ def create_repair_quotation(
         session.add(quote)
         session.flush()
 
+        session.add(Notification(customer_id=appointment.customer_id, title="Báo giá sửa chữa mới", message=f"Báo giá {quote.quote_number} đã được tạo. Vui lòng xem và xác nhận trong mục Báo giá."))
         # 6. Khởi tạo và lưu từng QuoteItem
         for p_item in prepared_items:
             db_item = QuoteItem(

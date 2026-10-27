@@ -32,6 +32,11 @@ class UserBase(SQLModel):
     full_name: str | None = Field(default=None, max_length=255)
     role: str = Field(default=UserRole.CUSTOMER.value, max_length=50, index=True)
 
+    @field_validator("role")
+    @classmethod
+    def validate_user_role(cls, value: str) -> str:
+        return UserRole(value).value
+
 
 class UserCreate(UserBase):
     password: str = Field(min_length=8, max_length=128)
@@ -50,6 +55,11 @@ class UserUpdate(SQLModel):
     full_name: str | None = Field(default=None, max_length=255)
     password: str | None = Field(default=None, min_length=8, max_length=128)
     role: str | None = Field(default=None, max_length=50)
+
+    @field_validator("role")
+    @classmethod
+    def validate_user_role(cls, value: str | None) -> str | None:
+        return UserRole(value).value if value is not None else None
 
 
 class UserUpdateMe(SQLModel):

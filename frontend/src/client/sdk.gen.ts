@@ -2,7 +2,7 @@
 
 import { type Client, type Options as Options2, type TDataShape, urlSearchParamsBodySerializer } from './client';
 import { client } from './client.gen';
-import type { appointmentsAssignTechnicianToAppointmentData, appointmentsAssignTechnicianToAppointmentErrors, appointmentsAssignTechnicianToAppointmentResponses, appointmentsCancelAppointmentData, appointmentsCancelAppointmentErrors, appointmentsCancelAppointmentResponses, appointmentsConfirmAppointmentData, appointmentsConfirmAppointmentErrors, appointmentsConfirmAppointmentResponses, appointmentsCreateAppointmentData, appointmentsCreateAppointmentErrors, appointmentsCreateAppointmentResponses, appointmentsLookupAppointmentData, appointmentsLookupAppointmentErrors, appointmentsLookupAppointmentResponses, appointmentsReadAppointmentDetailData, appointmentsReadAppointmentDetailErrors, appointmentsReadAppointmentDetailResponses, appointmentsReadAppointmentsHistoryData, appointmentsReadAppointmentsHistoryErrors, appointmentsReadAppointmentsHistoryResponses, appointmentsReadMyAppointmentsData, appointmentsReadMyAppointmentsErrors, appointmentsReadMyAppointmentsResponses, appointmentsUpdateAppointmentData, appointmentsUpdateAppointmentErrors, appointmentsUpdateAppointmentResponses, bookingsAssignTechnicianToAppointmentData, bookingsAssignTechnicianToAppointmentErrors, bookingsAssignTechnicianToAppointmentResponses, bookingsCancelAppointmentData, bookingsCancelAppointmentErrors, bookingsCancelAppointmentResponses, bookingsConfirmAppointmentData, bookingsConfirmAppointmentErrors, bookingsConfirmAppointmentResponses, bookingsCreateAppointmentData, bookingsCreateAppointmentErrors, bookingsCreateAppointmentResponses, bookingsUpdateAppointmentData, bookingsUpdateAppointmentErrors, bookingsUpdateAppointmentResponses, customersCreateCustomerData, customersCreateCustomerErrors, customersCreateCustomerResponses, customersDeleteCustomerData, customersDeleteCustomerErrors, customersDeleteCustomerResponses, customersReadCustomerAppointmentsData, customersReadCustomerAppointmentsErrors, customersReadCustomerAppointmentsResponses, customersReadCustomerByIdData, customersReadCustomerByIdErrors, customersReadCustomerByIdResponses, customersReadCustomersData, customersReadCustomersErrors, customersReadCustomersResponses, customersUpdateCustomerData, customersUpdateCustomerErrors, customersUpdateCustomerResponses, devicesUpdateDeviceData, devicesUpdateDeviceErrors, devicesUpdateDeviceResponses, intakeCreateDeviceIntakeData, intakeCreateDeviceIntakeErrors, intakeCreateDeviceIntakeResponses, itemsCreateItemData, itemsCreateItemErrors, itemsCreateItemResponses, itemsDeleteItemData, itemsDeleteItemErrors, itemsDeleteItemResponses, itemsReadItemData, itemsReadItemErrors, itemsReadItemResponses, itemsReadItemsData, itemsReadItemsErrors, itemsReadItemsResponses, itemsUpdateItemData, itemsUpdateItemErrors, itemsUpdateItemResponses, loginLoginAccessTokenData, loginLoginAccessTokenErrors, loginLoginAccessTokenResponses, loginRecoverPasswordData, loginRecoverPasswordErrors, loginRecoverPasswordHtmlContentData, loginRecoverPasswordHtmlContentErrors, loginRecoverPasswordHtmlContentResponses, loginRecoverPasswordResponses, loginRefreshAccessTokenData, loginRefreshAccessTokenErrors, loginRefreshAccessTokenResponses, loginRegisterUserData, loginRegisterUserErrors, loginRegisterUserResponses, loginResetPasswordData, loginResetPasswordErrors, loginResetPasswordResponses, loginRevokeRefreshTokenData, loginRevokeRefreshTokenErrors, loginRevokeRefreshTokenResponses, loginTestTokenData, loginTestTokenResponses, privateCreateUserData, privateCreateUserErrors, privateCreateUserResponses, queueAddAppointmentToQueueData, queueAddAppointmentToQueueErrors, queueAddAppointmentToQueueResponses, queueReadQueueData, queueReadQueueErrors, queueReadQueueItemData, queueReadQueueItemErrors, queueReadQueueItemResponses, queueReadQueueResponses, queueUpdateQueueStatusData, queueUpdateQueueStatusErrors, queueUpdateQueueStatusResponses, quotesAcceptQuotationData, quotesAcceptQuotationErrors, quotesAcceptQuotationResponses, quotesApproveQuotationAliasData, quotesApproveQuotationAliasErrors, quotesApproveQuotationAliasResponses, quotesCreateQuotationData, quotesCreateQuotationErrors, quotesCreateQuotationResponses, quotesReadQuotationData, quotesReadQuotationErrors, quotesReadQuotationResponses, quotesReadQuotationsData, quotesReadQuotationsErrors, quotesReadQuotationsResponses, quotesRejectQuotationData, quotesRejectQuotationErrors, quotesRejectQuotationResponses, repairOrdersAssignTechnicianData, repairOrdersAssignTechnicianErrors, repairOrdersAssignTechnicianResponses, repairOrdersReadRepairOrderData, repairOrdersReadRepairOrderErrors, repairOrdersReadRepairOrderResponses, repairOrdersReadRepairOrdersData, repairOrdersReadRepairOrdersErrors, repairOrdersReadRepairOrdersResponses, repairOrdersUpdateRepairStatusData, repairOrdersUpdateRepairStatusErrors, repairOrdersUpdateRepairStatusResponses, servicesReadPublicServicesData, servicesReadPublicServicesErrors, servicesReadPublicServicesResponses, slotsCheckSlotData, slotsCheckSlotErrors, slotsCheckSlotResponses, slotsGetAvailableSlotsData, slotsGetAvailableSlotsErrors, slotsGetAvailableSlotsResponses, techniciansCreateTechnicianData, techniciansCreateTechnicianErrors, techniciansCreateTechnicianResponses, techniciansDeleteTechnicianData, techniciansDeleteTechnicianErrors, techniciansDeleteTechnicianResponses, techniciansReadTechnicianByIdData, techniciansReadTechnicianByIdErrors, techniciansReadTechnicianByIdResponses, techniciansReadTechniciansData, techniciansReadTechniciansErrors, techniciansReadTechniciansResponses, techniciansUpdateTechnicianData, techniciansUpdateTechnicianErrors, techniciansUpdateTechnicianResponses, techniciansUpdateTechnicianStatusData, techniciansUpdateTechnicianStatusErrors, techniciansUpdateTechnicianStatusResponses, usersCreateUserData, usersCreateUserErrors, usersCreateUserResponses, usersDeleteUserData, usersDeleteUserErrors, usersDeleteUserMeData, usersDeleteUserMeResponses, usersDeleteUserResponses, usersReadUserByIdData, usersReadUserByIdErrors, usersReadUserByIdResponses, usersReadUserMeData, usersReadUserMeResponses, usersReadUsersData, usersReadUsersErrors, usersReadUsersResponses, usersRegisterUserData, usersRegisterUserErrors, usersRegisterUserResponses, usersUpdatePasswordMeData, usersUpdatePasswordMeErrors, usersUpdatePasswordMeResponses, usersUpdateUserData, usersUpdateUserErrors, usersUpdateUserMeData, usersUpdateUserMeErrors, usersUpdateUserMeResponses, usersUpdateUserResponses, utilsHealthCheckData, utilsHealthCheckResponses, utilsTestEmailData, utilsTestEmailErrors, utilsTestEmailResponses, workSchedulesCreateWorkScheduleData, workSchedulesCreateWorkScheduleErrors, workSchedulesCreateWorkScheduleResponses, workSchedulesDeleteWorkScheduleData, workSchedulesDeleteWorkScheduleErrors, workSchedulesDeleteWorkScheduleResponses, workSchedulesReadWorkScheduleByIdData, workSchedulesReadWorkScheduleByIdErrors, workSchedulesReadWorkScheduleByIdResponses, workSchedulesReadWorkSchedulesData, workSchedulesReadWorkSchedulesErrors, workSchedulesReadWorkSchedulesResponses, workSchedulesUpdateWorkScheduleData, workSchedulesUpdateWorkScheduleErrors, workSchedulesUpdateWorkScheduleResponses, workSchedulesUpdateWorkScheduleStatusData, workSchedulesUpdateWorkScheduleStatusErrors, workSchedulesUpdateWorkScheduleStatusResponses } from './types.gen';
+import type { appointmentsAssignTechnicianToAppointmentData, appointmentsAssignTechnicianToAppointmentErrors, appointmentsAssignTechnicianToAppointmentResponses, appointmentsCancelAppointmentData, appointmentsCancelAppointmentErrors, appointmentsCancelAppointmentResponses, appointmentsConfirmAppointmentData, appointmentsConfirmAppointmentErrors, appointmentsConfirmAppointmentResponses, appointmentsCreateAppointmentData, appointmentsCreateAppointmentErrors, appointmentsCreateAppointmentResponses, appointmentsLookupAppointmentData, appointmentsLookupAppointmentErrors, appointmentsLookupAppointmentResponses, appointmentsReadAppointmentDetailData, appointmentsReadAppointmentDetailErrors, appointmentsReadAppointmentDetailResponses, appointmentsReadAppointmentsHistoryData, appointmentsReadAppointmentsHistoryErrors, appointmentsReadAppointmentsHistoryResponses, appointmentsReadMyAppointmentsData, appointmentsReadMyAppointmentsErrors, appointmentsReadMyAppointmentsResponses, appointmentsUpdateAppointmentData, appointmentsUpdateAppointmentErrors, appointmentsUpdateAppointmentResponses, bookingsAssignTechnicianToAppointmentData, bookingsAssignTechnicianToAppointmentErrors, bookingsAssignTechnicianToAppointmentResponses, bookingsCancelAppointmentData, bookingsCancelAppointmentErrors, bookingsCancelAppointmentResponses, bookingsConfirmAppointmentData, bookingsConfirmAppointmentErrors, bookingsConfirmAppointmentResponses, bookingsCreateAppointmentData, bookingsCreateAppointmentErrors, bookingsCreateAppointmentResponses, bookingsUpdateAppointmentData, bookingsUpdateAppointmentErrors, bookingsUpdateAppointmentResponses, commerceHandoverDeviceData, commerceHandoverDeviceErrors, commerceHandoverDeviceResponses, commerceIssueInvoiceData, commerceIssueInvoiceErrors, commerceIssueInvoiceResponses, commerceMarkNotificationReadData, commerceMarkNotificationReadErrors, commerceMarkNotificationReadResponses, commerceReadInvoiceData, commerceReadInvoiceErrors, commerceReadInvoiceResponses, commerceReadInvoicesData, commerceReadInvoicesErrors, commerceReadInvoicesResponses, commerceReadMyReviewsData, commerceReadMyReviewsErrors, commerceReadMyReviewsResponses, commerceReadNotificationsData, commerceReadNotificationsErrors, commerceReadNotificationsResponses, commerceReadStatisticsData, commerceReadStatisticsErrors, commerceReadStatisticsResponses, commerceRecordPaymentData, commerceRecordPaymentErrors, commerceRecordPaymentResponses, commerceSubmitReviewData, commerceSubmitReviewErrors, commerceSubmitReviewResponses, customersCreateCustomerData, customersCreateCustomerErrors, customersCreateCustomerResponses, customersDeleteCustomerData, customersDeleteCustomerErrors, customersDeleteCustomerResponses, customersReadCustomerAppointmentsData, customersReadCustomerAppointmentsErrors, customersReadCustomerAppointmentsResponses, customersReadCustomerByIdData, customersReadCustomerByIdErrors, customersReadCustomerByIdResponses, customersReadCustomersData, customersReadCustomersErrors, customersReadCustomersResponses, customersUpdateCustomerData, customersUpdateCustomerErrors, customersUpdateCustomerResponses, devicesUpdateDeviceData, devicesUpdateDeviceErrors, devicesUpdateDeviceResponses, intakeCreateDeviceIntakeData, intakeCreateDeviceIntakeErrors, intakeCreateDeviceIntakeResponses, itemsCreateItemData, itemsCreateItemErrors, itemsCreateItemResponses, itemsDeleteItemData, itemsDeleteItemErrors, itemsDeleteItemResponses, itemsReadItemData, itemsReadItemErrors, itemsReadItemResponses, itemsReadItemsData, itemsReadItemsErrors, itemsReadItemsResponses, itemsUpdateItemData, itemsUpdateItemErrors, itemsUpdateItemResponses, loginLoginAccessTokenData, loginLoginAccessTokenErrors, loginLoginAccessTokenResponses, loginRecoverPasswordData, loginRecoverPasswordErrors, loginRecoverPasswordHtmlContentData, loginRecoverPasswordHtmlContentErrors, loginRecoverPasswordHtmlContentResponses, loginRecoverPasswordResponses, loginRefreshAccessTokenData, loginRefreshAccessTokenErrors, loginRefreshAccessTokenResponses, loginRegisterUserData, loginRegisterUserErrors, loginRegisterUserResponses, loginResetPasswordData, loginResetPasswordErrors, loginResetPasswordResponses, loginRevokeRefreshTokenData, loginRevokeRefreshTokenErrors, loginRevokeRefreshTokenResponses, loginTestTokenData, loginTestTokenResponses, privateCreateUserData, privateCreateUserErrors, privateCreateUserResponses, queueAddAppointmentToQueueData, queueAddAppointmentToQueueErrors, queueAddAppointmentToQueueResponses, queueReadQueueData, queueReadQueueErrors, queueReadQueueItemData, queueReadQueueItemErrors, queueReadQueueItemResponses, queueReadQueueResponses, queueUpdateQueueStatusData, queueUpdateQueueStatusErrors, queueUpdateQueueStatusResponses, quotesAcceptQuotationData, quotesAcceptQuotationErrors, quotesAcceptQuotationResponses, quotesApproveQuotationAliasData, quotesApproveQuotationAliasErrors, quotesApproveQuotationAliasResponses, quotesCreateQuotationData, quotesCreateQuotationErrors, quotesCreateQuotationResponses, quotesReadQuotationData, quotesReadQuotationErrors, quotesReadQuotationResponses, quotesReadQuotationsData, quotesReadQuotationsErrors, quotesReadQuotationsResponses, quotesRejectQuotationData, quotesRejectQuotationErrors, quotesRejectQuotationResponses, repairOrdersAssignTechnicianData, repairOrdersAssignTechnicianErrors, repairOrdersAssignTechnicianResponses, repairOrdersReadRepairOrderData, repairOrdersReadRepairOrderErrors, repairOrdersReadRepairOrderResponses, repairOrdersReadRepairOrdersData, repairOrdersReadRepairOrdersErrors, repairOrdersReadRepairOrdersResponses, repairOrdersUpdateRepairStatusData, repairOrdersUpdateRepairStatusErrors, repairOrdersUpdateRepairStatusResponses, servicesCreateServiceData, servicesCreateServiceErrors, servicesCreateServiceResponses, servicesReadManagedServicesData, servicesReadManagedServicesErrors, servicesReadManagedServicesResponses, servicesReadPublicServiceData, servicesReadPublicServiceErrors, servicesReadPublicServiceResponses, servicesReadPublicServicesData, servicesReadPublicServicesErrors, servicesReadPublicServicesResponses, servicesUpdateServiceData, servicesUpdateServiceErrors, servicesUpdateServiceResponses, slotsCheckSlotData, slotsCheckSlotErrors, slotsCheckSlotResponses, slotsGetAvailableSlotsData, slotsGetAvailableSlotsErrors, slotsGetAvailableSlotsResponses, techniciansCreateTechnicianData, techniciansCreateTechnicianErrors, techniciansCreateTechnicianResponses, techniciansDeleteTechnicianData, techniciansDeleteTechnicianErrors, techniciansDeleteTechnicianResponses, techniciansReadTechnicianByIdData, techniciansReadTechnicianByIdErrors, techniciansReadTechnicianByIdResponses, techniciansReadTechniciansData, techniciansReadTechniciansErrors, techniciansReadTechniciansResponses, techniciansUpdateTechnicianData, techniciansUpdateTechnicianErrors, techniciansUpdateTechnicianResponses, techniciansUpdateTechnicianStatusData, techniciansUpdateTechnicianStatusErrors, techniciansUpdateTechnicianStatusResponses, usersCreateUserData, usersCreateUserErrors, usersCreateUserResponses, usersDeleteUserData, usersDeleteUserErrors, usersDeleteUserMeData, usersDeleteUserMeResponses, usersDeleteUserResponses, usersReadUserByIdData, usersReadUserByIdErrors, usersReadUserByIdResponses, usersReadUserMeData, usersReadUserMeResponses, usersReadUsersData, usersReadUsersErrors, usersReadUsersResponses, usersRegisterUserData, usersRegisterUserErrors, usersRegisterUserResponses, usersUpdatePasswordMeData, usersUpdatePasswordMeErrors, usersUpdatePasswordMeResponses, usersUpdateUserData, usersUpdateUserErrors, usersUpdateUserMeData, usersUpdateUserMeErrors, usersUpdateUserMeResponses, usersUpdateUserResponses, utilsHealthCheckData, utilsHealthCheckResponses, utilsTestEmailData, utilsTestEmailErrors, utilsTestEmailResponses, workSchedulesCreateWorkScheduleData, workSchedulesCreateWorkScheduleErrors, workSchedulesCreateWorkScheduleResponses, workSchedulesDeleteWorkScheduleData, workSchedulesDeleteWorkScheduleErrors, workSchedulesDeleteWorkScheduleResponses, workSchedulesReadWorkScheduleByIdData, workSchedulesReadWorkScheduleByIdErrors, workSchedulesReadWorkScheduleByIdResponses, workSchedulesReadWorkSchedulesData, workSchedulesReadWorkSchedulesErrors, workSchedulesReadWorkSchedulesResponses, workSchedulesUpdateWorkScheduleData, workSchedulesUpdateWorkScheduleErrors, workSchedulesUpdateWorkScheduleResponses, workSchedulesUpdateWorkScheduleStatusData, workSchedulesUpdateWorkScheduleStatusErrors, workSchedulesUpdateWorkScheduleStatusResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -520,6 +520,7 @@ export class AppointmentsService {
     public static createAppointment<ThrowOnError extends boolean = true>(options: Options<appointmentsCreateAppointmentData, ThrowOnError>) {
         return (options.client ?? client).post<appointmentsCreateAppointmentResponses, appointmentsCreateAppointmentErrors, ThrowOnError>({
             responseType: 'json',
+            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/api/v1/appointments',
             ...options,
             headers: {
@@ -614,6 +615,7 @@ export class BookingsService {
     public static createAppointment<ThrowOnError extends boolean = true>(options: Options<bookingsCreateAppointmentData, ThrowOnError>) {
         return (options.client ?? client).post<bookingsCreateAppointmentResponses, bookingsCreateAppointmentErrors, ThrowOnError>({
             responseType: 'json',
+            security: [{ scheme: 'bearer', type: 'http' }],
             url: '/api/v1/bookings',
             ...options,
             headers: {
@@ -1286,6 +1288,18 @@ export class RepairOrdersService {
 
 export class ServicesService {
     /**
+     * Read Managed Services
+     */
+    public static readManagedServices<ThrowOnError extends boolean = true>(options?: Options<servicesReadManagedServicesData, ThrowOnError>) {
+        return (options?.client ?? client).get<servicesReadManagedServicesResponses, servicesReadManagedServicesErrors, ThrowOnError>({
+            responseType: 'json',
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/api/v1/services/manage',
+            ...options
+        });
+    }
+
+    /**
      * Lấy dịch vụ sửa chữa công khai
      *
      * Trả các dịch vụ đang hoạt động để khách hàng chọn khi đặt lịch.
@@ -1294,6 +1308,183 @@ export class ServicesService {
         return (options?.client ?? client).get<servicesReadPublicServicesResponses, servicesReadPublicServicesErrors, ThrowOnError>({
             responseType: 'json',
             url: '/api/v1/services',
+            ...options
+        });
+    }
+
+    /**
+     * Create Service
+     */
+    public static createService<ThrowOnError extends boolean = true>(options: Options<servicesCreateServiceData, ThrowOnError>) {
+        return (options.client ?? client).post<servicesCreateServiceResponses, servicesCreateServiceErrors, ThrowOnError>({
+            responseType: 'json',
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/api/v1/services',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+            }
+        });
+    }
+
+    /**
+     * Read Public Service
+     */
+    public static readPublicService<ThrowOnError extends boolean = true>(options: Options<servicesReadPublicServiceData, ThrowOnError>) {
+        return (options.client ?? client).get<servicesReadPublicServiceResponses, servicesReadPublicServiceErrors, ThrowOnError>({
+            responseType: 'json',
+            url: '/api/v1/services/{service_id}',
+            ...options
+        });
+    }
+
+    /**
+     * Update Service
+     */
+    public static updateService<ThrowOnError extends boolean = true>(options: Options<servicesUpdateServiceData, ThrowOnError>) {
+        return (options.client ?? client).put<servicesUpdateServiceResponses, servicesUpdateServiceErrors, ThrowOnError>({
+            responseType: 'json',
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/api/v1/services/{service_id}',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+            }
+        });
+    }
+}
+
+export class CommerceService {
+    /**
+     * Read Invoices
+     */
+    public static readInvoices<ThrowOnError extends boolean = true>(options?: Options<commerceReadInvoicesData, ThrowOnError>) {
+        return (options?.client ?? client).get<commerceReadInvoicesResponses, commerceReadInvoicesErrors, ThrowOnError>({
+            responseType: 'json',
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/api/v1/invoices',
+            ...options
+        });
+    }
+
+    /**
+     * Issue Invoice
+     */
+    public static issueInvoice<ThrowOnError extends boolean = true>(options: Options<commerceIssueInvoiceData, ThrowOnError>) {
+        return (options.client ?? client).post<commerceIssueInvoiceResponses, commerceIssueInvoiceErrors, ThrowOnError>({
+            responseType: 'json',
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/api/v1/invoices',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+            }
+        });
+    }
+
+    /**
+     * Read Invoice
+     */
+    public static readInvoice<ThrowOnError extends boolean = true>(options: Options<commerceReadInvoiceData, ThrowOnError>) {
+        return (options.client ?? client).get<commerceReadInvoiceResponses, commerceReadInvoiceErrors, ThrowOnError>({
+            responseType: 'json',
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/api/v1/invoices/{invoice_id}',
+            ...options
+        });
+    }
+
+    /**
+     * Record Payment
+     */
+    public static recordPayment<ThrowOnError extends boolean = true>(options: Options<commerceRecordPaymentData, ThrowOnError>) {
+        return (options.client ?? client).post<commerceRecordPaymentResponses, commerceRecordPaymentErrors, ThrowOnError>({
+            responseType: 'json',
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/api/v1/invoices/{invoice_id}/payments',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+            }
+        });
+    }
+
+    /**
+     * Handover Device
+     */
+    public static handoverDevice<ThrowOnError extends boolean = true>(options: Options<commerceHandoverDeviceData, ThrowOnError>) {
+        return (options.client ?? client).post<commerceHandoverDeviceResponses, commerceHandoverDeviceErrors, ThrowOnError>({
+            responseType: 'json',
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/api/v1/invoices/{invoice_id}/handover',
+            ...options
+        });
+    }
+
+    /**
+     * Read Statistics
+     */
+    public static readStatistics<ThrowOnError extends boolean = true>(options?: Options<commerceReadStatisticsData, ThrowOnError>) {
+        return (options?.client ?? client).get<commerceReadStatisticsResponses, commerceReadStatisticsErrors, ThrowOnError>({
+            responseType: 'json',
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/api/v1/statistics',
+            ...options
+        });
+    }
+
+    /**
+     * Read My Reviews
+     */
+    public static readMyReviews<ThrowOnError extends boolean = true>(options?: Options<commerceReadMyReviewsData, ThrowOnError>) {
+        return (options?.client ?? client).get<commerceReadMyReviewsResponses, commerceReadMyReviewsErrors, ThrowOnError>({
+            responseType: 'json',
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/api/v1/reviews',
+            ...options
+        });
+    }
+
+    /**
+     * Submit Review
+     */
+    public static submitReview<ThrowOnError extends boolean = true>(options: Options<commerceSubmitReviewData, ThrowOnError>) {
+        return (options.client ?? client).post<commerceSubmitReviewResponses, commerceSubmitReviewErrors, ThrowOnError>({
+            responseType: 'json',
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/api/v1/reviews',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+            }
+        });
+    }
+
+    /**
+     * Read Notifications
+     */
+    public static readNotifications<ThrowOnError extends boolean = true>(options?: Options<commerceReadNotificationsData, ThrowOnError>) {
+        return (options?.client ?? client).get<commerceReadNotificationsResponses, commerceReadNotificationsErrors, ThrowOnError>({
+            responseType: 'json',
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/api/v1/notifications',
+            ...options
+        });
+    }
+
+    /**
+     * Mark Notification Read
+     */
+    public static markNotificationRead<ThrowOnError extends boolean = true>(options: Options<commerceMarkNotificationReadData, ThrowOnError>) {
+        return (options.client ?? client).patch<commerceMarkNotificationReadResponses, commerceMarkNotificationReadErrors, ThrowOnError>({
+            responseType: 'json',
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/api/v1/notifications/{notification_id}/read',
             ...options
         });
     }

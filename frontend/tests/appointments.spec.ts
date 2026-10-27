@@ -1,6 +1,7 @@
 import { expect, test } from "@playwright/test"
 
 const appointmentId = "22222222-2222-4222-8222-222222222222"
+test.use({ storageState: { cookies: [], origins: [] } })
 
 test("khách xem lịch riêng và hủy lịch bằng API mock", async ({ page }) => {
   await page.addInitScript(() =>
@@ -73,7 +74,16 @@ test("khách xem lịch riêng và hủy lịch bằng API mock", async ({ page 
   await expect(
     page.getByRole("link", { name: "Xem chi tiết" }),
   ).toHaveAttribute("href", `/appointments/${appointmentId}`)
-  await page.goto(`/appointments/${appointmentId}`)
+  await page.getByRole("link", { name: "Xem chi tiết" }).click()
+  await page.waitForURL(`/appointments/${appointmentId}`)
+  await expect(page.getByLabel("Lý do thay đổi hoặc hủy")).toBeVisible()
+  await page.reload()
   await page.getByLabel("Lý do thay đổi hoặc hủy").fill("Đổi kế hoạch")
+  const cancelled = page.waitForResponse(
+    (response) =>
+      response.url().endsWith(`/${appointmentId}/cancel`) &&
+      response.status() === 200,
+  )
   await page.getByRole("button", { name: "Hủy lịch" }).click()
+  await cancelled
 })

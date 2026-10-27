@@ -19,7 +19,13 @@ router = APIRouter(prefix="/repair-orders", tags=["repair-orders"])
 
 
 @router.get("", response_model=AppointmentsHistoryPublic)
-def read_repair_orders(session: SessionDep, current_user: RequireStaff, skip: int = Query(0, ge=0), limit: int = Query(20, ge=1, le=100), status_filter: str | None = None) -> AppointmentsHistoryPublic:
+def read_repair_orders(
+    session: SessionDep,
+    current_user: RequireStaff,
+    skip: int = Query(0, ge=0),
+    limit: int = Query(20, ge=1, le=100),
+    status_filter: str | None = None,
+) -> AppointmentsHistoryPublic:
     ids = access_service.accessible_appointment_ids(session, current_user)
     query = select(Appointment)
     count = select(func.count()).select_from(Appointment)
@@ -29,13 +35,27 @@ def read_repair_orders(session: SessionDep, current_user: RequireStaff, skip: in
     if status_filter:
         query = query.where(Appointment.status == status_filter)
         count = count.where(Appointment.status == status_filter)
-    rows = session.exec(query.order_by(col(Appointment.appointment_date).desc()).offset(skip).limit(limit)).all()
-    return AppointmentsHistoryPublic(data=[history_service.build_appointment_history_detail(session, row) for row in rows], count=session.exec(count).one())
+    rows = session.exec(
+        query.order_by(col(Appointment.appointment_date).desc())
+        .offset(skip)
+        .limit(limit)
+    ).all()
+    return AppointmentsHistoryPublic(
+        data=[
+            history_service.build_appointment_history_detail(session, row)
+            for row in rows
+        ],
+        count=session.exec(count).one(),
+    )
 
 
 @router.get("/{repair_order_id}", response_model=AppointmentHistoryDetail)
-def read_repair_order(session: SessionDep, current_user: RequireStaff, repair_order_id: uuid.UUID) -> AppointmentHistoryDetail:
-    return history_service.get_appointment_detail(session, repair_order_id, current_user)
+def read_repair_order(
+    session: SessionDep, current_user: RequireStaff, repair_order_id: uuid.UUID
+) -> AppointmentHistoryDetail:
+    return history_service.get_appointment_detail(
+        session, repair_order_id, current_user
+    )
 
 
 @router.patch(

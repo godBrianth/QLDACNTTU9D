@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import type { ReactNode } from "react"
+import { type ReactNode, useId, useRef, useState } from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { z } from "zod"
@@ -190,6 +190,9 @@ export function ActionForm({
   confirm?: boolean
 }) {
   const cache = useQueryClient()
+  const formId = useId()
+  const submitting = useRef(false)
+  const [confirmOpen, setConfirmOpen] = useState(false)
   const schema = z.record(z.string(), z.string()).superRefine((values, ctx) => {
     for (const field of fields) {
       const value = values[field.name]?.trim() ?? ""
@@ -228,27 +231,31 @@ export function ActionForm({
   const mutation = useMutation({
     mutationFn: onSubmit,
     onSuccess: async () => {
+      setConfirmOpen(false)
       toast.success("Đã lưu thành công")
       await cache.invalidateQueries({ queryKey: ["operations"] })
       await cache.invalidateQueries({ queryKey: ["my-appointments"] })
     },
+    onSettled: () => {
+      submitting.current = false
+    },
   })
+  const submit = (values: Record<string, string>) => {
+    if (submitting.current) return
+    submitting.current = true
+    mutation.mutate(values)
+  }
   return (
-    <form
-      className="grid gap-4"
-      onSubmit={form.handleSubmit((values) => {
-        if (!mutation.isPending) mutation.mutate(values)
-      })}
-    >
+    <form className="grid gap-4" onSubmit={form.handleSubmit(submit)}>
       {fields.map((field) => (
         <div key={field.name} className="grid gap-2">
-          <Label htmlFor={field.name}>
+          <Label htmlFor={`${formId}-${field.name}`}>
             {field.label}
             {field.required ? " *" : ""}
           </Label>
           {field.options ? (
             <select
-              id={field.name}
+              id={`${formId}-${field.name}`}
               className="h-10 rounded-md border bg-background px-3"
               {...form.register(field.name)}
             >
@@ -261,7 +268,7 @@ export function ActionForm({
             </select>
           ) : (
             <Input
-              id={field.name}
+              id={`${formId}-${field.name}`}
               type={field.type ?? "text"}
               min={field.min}
               max={field.max}
@@ -282,7 +289,7 @@ export function ActionForm({
         </p>
       )}
       {confirm ? (
-        <Dialog>
+        <Dialog open={confirmOpen} onOpenChange={setConfirmOpen}>
           <DialogTrigger asChild>
             <Button
               type="button"
@@ -303,7 +310,7 @@ export function ActionForm({
             <Button
               type="button"
               disabled={mutation.isPending}
-              onClick={form.handleSubmit((values) => mutation.mutate(values))}
+              onClick={form.handleSubmit(submit)}
             >
               {mutation.isPending ? "Đang lưu..." : "Xác nhận"}
             </Button>

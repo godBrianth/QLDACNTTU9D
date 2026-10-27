@@ -209,6 +209,18 @@ def lookup_appointments(
                 return []
             query = query.where(Appointment.customer_id == user_cust.id)
 
+    if (
+        current_user
+        and current_user.role == "technician"
+        and not current_user.is_superuser
+    ):
+        technician = session.exec(
+            select(Technician).where(Technician.user_id == current_user.id)
+        ).first()
+        if not technician:
+            return []
+        query = query.where(Appointment.technician_id == technician.id)
+
     appts = session.exec(
         query.order_by(col(Appointment.appointment_date).desc()).limit(20)
     ).all()

@@ -17,6 +17,9 @@ const baseItems: Item[] = [
   { icon: Home, title: "Tổng quan", path: "/app" },
   { icon: CalendarDays, title: "Lịch hẹn của tôi", path: "/appointments" },
   { icon: ClipboardList, title: "Báo giá", path: "/quotes" },
+  { icon: ClipboardList, title: "Hóa đơn & thanh toán", path: "/invoices" },
+  { icon: ClipboardList, title: "Thông báo", path: "/notifications" },
+  { icon: ClipboardList, title: "Đánh giá dịch vụ", path: "/reviews" },
 ]
 
 export function AppSidebar() {
@@ -27,7 +30,18 @@ export function AppSidebar() {
     ["admin", "manager", "staff", "technician"].includes(
       currentUser?.role ?? "",
     )
-  const items: Item[] = [...baseItems]
+  const items: Item[] = baseItems.filter((item) => {
+    if (item.path === "/reviews")
+      return currentUser?.role === "customer" && !currentUser.is_superuser
+    if (item.path === "/invoices")
+      return (
+        currentUser?.is_superuser ||
+        ["customer", "admin", "manager", "staff"].includes(
+          currentUser?.role ?? "",
+        )
+      )
+    return true
+  })
   if (isStaff)
     items.push(
       { icon: Home, title: "Trung tâm tiếp nhận", path: "/workspace" },
@@ -56,6 +70,14 @@ export function AppSidebar() {
     )
   if (currentUser?.is_superuser)
     items.push({ icon: Users, title: "Quản trị tài khoản", path: "/admin" })
+  if (
+    currentUser?.is_superuser ||
+    ["admin", "manager"].includes(currentUser?.role ?? "")
+  )
+    items.push(
+      { icon: Home, title: "Thống kê & doanh thu", path: "/workspace/reports" },
+      { icon: Wrench, title: "Quản lý dịch vụ", path: "/workspace/services" },
+    )
 
   return (
     <Sidebar collapsible="icon">

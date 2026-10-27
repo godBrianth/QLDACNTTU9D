@@ -5,12 +5,12 @@ from sqlmodel import col, func, select
 
 from app.api.deps import CurrentUser, RequireStaff, SessionDep
 from app.models import (
+    Appointment,
     QuotationAcceptRequest,
     QuotationCreate,
     QuotationResponse,
     QuotationsPublic,
     Quote,
-    Appointment,
     RepairStatusHistory,
     get_datetime_utc,
 )
@@ -20,7 +20,13 @@ router = APIRouter(prefix="/quotes", tags=["quotes"])
 
 
 @router.get("", response_model=QuotationsPublic)
-def read_quotations(session: SessionDep, current_user: CurrentUser, skip: int = Query(0, ge=0), limit: int = Query(20, ge=1, le=100), appointment_id: uuid.UUID | None = None) -> QuotationsPublic:
+def read_quotations(
+    session: SessionDep,
+    current_user: CurrentUser,
+    skip: int = Query(0, ge=0),
+    limit: int = Query(20, ge=1, le=100),
+    appointment_id: uuid.UUID | None = None,
+) -> QuotationsPublic:
     ids = access_service.accessible_appointment_ids(session, current_user)
     query = select(Quote)
     count = select(func.count()).select_from(Quote)
@@ -30,36 +36,66 @@ def read_quotations(session: SessionDep, current_user: CurrentUser, skip: int = 
     if appointment_id:
         query = query.where(Quote.appointment_id == appointment_id)
         count = count.where(Quote.appointment_id == appointment_id)
-    rows = session.exec(query.order_by(col(Quote.created_at).desc()).offset(skip).limit(limit)).all()
-    return QuotationsPublic(data=[quote_service._build_quotation_detail(session, quote) for quote in rows], count=session.exec(count).one())
+    rows = session.exec(
+        query.order_by(col(Quote.created_at).desc()).offset(skip).limit(limit)
+    ).all()
+    return QuotationsPublic(
+        data=[quote_service._build_quotation_detail(session, quote) for quote in rows],
+        count=session.exec(count).one(),
+    )
 
 
 @router.get("/{quote_id}", response_model=QuotationResponse)
-def read_quotation(session: SessionDep, current_user: CurrentUser, quote_id: uuid.UUID) -> QuotationResponse:
+def read_quotation(
+    session: SessionDep, current_user: CurrentUser, quote_id: uuid.UUID
+) -> QuotationResponse:
     quote = session.get(Quote, quote_id)
     appointment = session.get(Appointment, quote.appointment_id) if quote else None
     if not quote or not appointment:
         raise HTTPException(status_code=404, detail="Không tìm thấy báo giá")
     access_service.check_appointment_access(session, current_user, appointment)
-    return QuotationResponse(message="Chi tiết báo giá", data=quote_service._build_quotation_detail(session, quote))
+    return QuotationResponse(
+        message="Chi tiết báo giá",
+        data=quote_service._build_quotation_detail(session, quote),
+    )
 
 
 @router.post("/{quote_id}/reject", response_model=QuotationResponse)
-def reject_quotation(session: SessionDep, current_user: CurrentUser, quote_id: uuid.UUID, body: QuotationAcceptRequest) -> QuotationResponse:
-    quote = session.exec(select(Quote).where(Quote.id == quote_id).with_for_update()).first()
+def reject_quotation(
+    session: SessionDep,
+    current_user: CurrentUser,
+    quote_id: uuid.UUID,
+    body: QuotationAcceptRequest,
+) -> QuotationResponse:
+    quote = session.exec(
+        select(Quote).where(Quote.id == quote_id).with_for_update()
+    ).first()
     appointment = session.get(Appointment, quote.appointment_id) if quote else None
     if not quote or not appointment:
         raise HTTPException(status_code=404, detail="Không tìm thấy báo giá")
     access_service.check_appointment_access(session, current_user, appointment)
     if quote.status not in ("DRAFT", "SENT"):
-        raise HTTPException(status_code=409, detail="Báo giá không còn được phép từ chối")
+        raise HTTPException(
+            status_code=409, detail="Báo giá không còn được phép từ chối"
+        )
     quote.status = "REJECTED"
     quote.updated_at = get_datetime_utc()
     session.add(quote)
-    session.add(RepairStatusHistory(appointment_id=appointment.id, previous_status=appointment.status, new_status=appointment.status, changed_by_user_id=current_user.id, note=f"Từ chối báo giá {quote.quote_number}: {body.note or ''}"))
+    session.add(
+        RepairStatusHistory(
+            appointment_id=appointment.id,
+            previous_status=appointment.status,
+            new_status=appointment.status,
+            changed_by_user_id=current_user.id,
+            note=f"Từ chối báo giá {quote.quote_number}: {body.note or ''}",
+        )
+    )
     session.commit()
     session.refresh(quote)
-    return QuotationResponse(message="Đã từ chối báo giá", data=quote_service._build_quotation_detail(session, quote))
+    return QuotationResponse(
+        message="Đã từ chối báo giá",
+        data=quote_service._build_quotation_detail(session, quote),
+    )
 
 
 @router.post(
