@@ -388,6 +388,22 @@ def test_customer_to_handover_workflow(client: TestClient, db: Session) -> None:
         },
     )
     assert intake.status_code == 201
+    assigned = client.patch(
+        f"/api/v1/repair-orders/{appointment_id}/technician",
+        headers=staff,
+        json={"technician_id": str(technician.id), "note": "Phân công sau tiếp nhận"},
+    )
+    assert assigned.status_code == 200
+    diagnosis = client.patch(
+        f"/api/v1/repair-orders/{appointment_id}/status",
+        headers=tech_headers,
+        json={
+            "status": "IN_PROGRESS",
+            "technician_diagnosis": "Pin chai",
+            "note": "Chẩn đoán trước báo giá, chưa thay linh kiện",
+        },
+    )
+    assert diagnosis.status_code == 200
     quotation = client.post(
         "/api/v1/quotes",
         headers=staff,
@@ -402,18 +418,6 @@ def test_customer_to_handover_workflow(client: TestClient, db: Session) -> None:
     assert (
         client.post(
             f"/api/v1/quotes/{quote_id}/accept", headers=customer_headers
-        ).status_code
-        == 200
-    )
-    assert (
-        client.patch(
-            f"/api/v1/repair-orders/{appointment_id}/status",
-            headers=tech_headers,
-            json={
-                "status": "IN_PROGRESS",
-                "technician_diagnosis": "Pin chai",
-                "note": "Bắt đầu thay",
-            },
         ).status_code
         == 200
     )

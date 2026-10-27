@@ -276,7 +276,7 @@ def assign_technician_to_repair(
             appointment_number=appointment.appointment_number,
             technician_id=tech.id,
             technician_name=tech.full_name,
-            technician_phone=tech.phone_number,
+            technician_phone=tech.phone_number or "",
             specialization=tech.specialization,
             status=appointment.status,
             assigned_at=now,
