@@ -2,6 +2,7 @@ from fastapi import APIRouter
 
 from app.api.routes import (
     appointments,
+    commerce,
     customers,
     devices,
     intake,
@@ -11,6 +12,7 @@ from app.api.routes import (
     queue,
     quotes,
     repair_orders,
+    services,
     slots,
     technicians,
     users,
@@ -35,6 +37,8 @@ api_router.include_router(intake.router)
 api_router.include_router(quotes.router)
 api_router.include_router(devices.router)
 api_router.include_router(repair_orders.router)
+api_router.include_router(services.router)
+api_router.include_router(commerce.router)
 
 
 if settings.FASTAPI_ENV == "development":
