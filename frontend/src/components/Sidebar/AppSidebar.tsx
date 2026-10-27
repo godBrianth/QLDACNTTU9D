@@ -1,4 +1,4 @@
-import { Home, Users } from "lucide-react"
+import { CalendarDays, Home, Users } from "lucide-react"
 
 import { SidebarAppearance } from "@/components/Common/Appearance"
 import { Logo } from "@/components/Common/Logo"
@@ -13,7 +13,10 @@ import { type Item, Main } from "./Main"
 import { getRoleLabel } from "./roles"
 import { User } from "./User"
 
-const baseItems: Item[] = [{ icon: Home, title: "Tổng quan", path: "/app" }]
+const baseItems: Item[] = [
+  { icon: Home, title: "Tổng quan", path: "/app" },
+  { icon: CalendarDays, title: "Lịch hẹn của tôi", path: "/appointments" },
+]
 
 export function AppSidebar() {
   const { user: currentUser } = useAuth()

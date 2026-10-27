@@ -89,6 +89,23 @@ def lookup_appointment(
 
 
 @router.get(
+    "/me",
+    response_model=AppointmentsHistoryPublic,
+    summary="Lấy lịch hẹn của người dùng đang đăng nhập",
+)
+def read_my_appointments(
+    session: SessionDep,
+    current_user: CurrentUser,
+    skip: int = Query(default=0, ge=0),
+    limit: int = Query(default=20, ge=1, le=100),
+) -> AppointmentsHistoryPublic:
+    """Không nhận customer_id để tránh truy cập lịch của khách hàng khác."""
+    return history_service.get_current_user_appointment_history(
+        session=session, current_user=current_user, skip=skip, limit=limit
+    )
+
+
+@router.get(
     "/{appointment_id}/detail",
     response_model=AppointmentHistoryDetail,
     summary="Xem chi tiết lịch hẹn kèm lịch sử trạng thái",

@@ -292,3 +292,24 @@ def get_customer_appointment_history(
         data=[build_appointment_history_detail(session, a) for a in appts],
         count=total_count,
     )
+
+
+def get_current_user_appointment_history(
+    session: Session,
+    current_user: User,
+    skip: int = 0,
+    limit: int = 20,
+) -> AppointmentsHistoryPublic:
+    """Trả về lịch hẹn của Customer được liên kết với tài khoản đang đăng nhập."""
+    customer = session.exec(
+        select(Customer).where(Customer.user_id == current_user.id)
+    ).first()
+    if not customer:
+        return AppointmentsHistoryPublic(data=[], count=0)
+    return get_customer_appointment_history(
+        session=session,
+        customer_id=customer.id,
+        skip=skip,
+        limit=limit,
+        current_user=current_user,
+    )

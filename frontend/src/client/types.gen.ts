@@ -2960,6 +2960,40 @@ export type appointmentsLookupAppointmentResponses = {
 
 export type appointmentsLookupAppointmentResponse = appointmentsLookupAppointmentResponses[keyof appointmentsLookupAppointmentResponses];
 
+export type appointmentsReadMyAppointmentsData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Skip
+         */
+        skip?: number;
+        /**
+         * Limit
+         */
+        limit?: number;
+    };
+    url: '/api/v1/appointments/me';
+};
+
+export type appointmentsReadMyAppointmentsErrors = {
+    /**
+     * Validation Error
+     */
+    422: HTTPValidationError;
+};
+
+export type appointmentsReadMyAppointmentsError = appointmentsReadMyAppointmentsErrors[keyof appointmentsReadMyAppointmentsErrors];
+
+export type appointmentsReadMyAppointmentsResponses = {
+    /**
+     * Successful Response
+     */
+    200: AppointmentsHistoryPublic;
+};
+
+export type appointmentsReadMyAppointmentsResponse = appointmentsReadMyAppointmentsResponses[keyof appointmentsReadMyAppointmentsResponses];
+
 export type appointmentsReadAppointmentDetailData = {
     body?: never;
     path: {

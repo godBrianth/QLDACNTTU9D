@@ -6,8 +6,8 @@
 - PARTIAL: UID 771 — Frontend lưu và làm mới access token bằng refresh-token rotation đã có từ FastAPI; mock smoke test PASS, chưa chạy lại toàn bộ suite auth tích hợp.
 - PARTIAL: UID 778, 779, 781, 824, 825 — các màn hình/API đăng ký, đăng nhập, hồ sơ đã có; cần chạy lại acceptance suite sau thay đổi token.
 - DONE: Luồng tạo lịch cơ bản — khách chọn dịch vụ, ngày, khung giờ, thông tin liên hệ và gửi `POST /api/v1/appointments` bằng API thật. GET `/api/v1/services` chỉ trả dịch vụ đang hoạt động; khách không phải chọn kỹ thuật viên.
-- TODO: Danh sách/chi tiết/đổi/hủy lịch cá nhân (Sprint 3–4), tiếp nhận/báo giá/sửa chữa (Sprint 5).
-- BLOCKED: Chưa có endpoint danh sách lịch của người dùng đăng nhập; `/appointments/history` chỉ cho nhân viên và không được dùng cho khách. Payment, invoice, review, notification, service management, statistics và revenue cũng chưa có API contract để frontend tích hợp thật.
+- DONE: Danh sách, chi tiết, đổi và hủy lịch cá nhân. `GET /appointments/me` lấy Customer theo tài khoản trong Bearer token, không nhận `customer_id` từ frontend.
+- TODO: Tiếp nhận/báo giá/sửa chữa (Sprint 5).
 
 ## API đã tích hợp thật
 
@@ -17,6 +17,9 @@
 - Booking: danh sách dịch vụ công khai, khung giờ còn trống và tạo lịch.
 
 ## Kiểm thử gần nhất
+
+- Nhóm B: auth setup 1/1 PASS; booking smoke 2/2 PASS; appointments smoke 1/1 PASS; TypeScript, Biome và production build PASS.
+- Quy trình generator: tự chuẩn hóa whitespace cuối dòng trong `src/client` bằng postProcess; không sửa nội dung nghiệp vụ generated. Các kết quả Nhóm B ở trên là bằng chứng lượt trước, không chạy lại toàn bộ suite khi chỉ sửa whitespace.
 
 - UID 770: OpenAPI 52 path / 70 operation / 0 operationId trùng; typecheck, build, Biome và Playwright HTTP error 7/7 PASS.
 - UID 767: auth setup 1/1 và login 10/10 PASS.

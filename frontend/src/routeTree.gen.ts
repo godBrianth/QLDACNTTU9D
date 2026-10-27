@@ -18,8 +18,11 @@ import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as LayoutAdminRouteImport } from './routes/_layout/admin'
 import { Route as LayoutAppRouteImport } from './routes/_layout/app'
+import { Route as LayoutAppointmentsRouteImport } from './routes/_layout/appointments'
 import { Route as LayoutItemsRouteImport } from './routes/_layout/items'
 import { Route as LayoutSettingsRouteImport } from './routes/_layout/settings'
+import { Route as LayoutAppointmentsIndexRouteImport } from './routes/_layout/appointments/index'
+import { Route as LayoutAppointmentsAppointmentIdRouteImport } from './routes/_layout/appointments.$appointmentId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -65,6 +68,11 @@ const LayoutAppRoute = LayoutAppRouteImport.update({
   path: '/app',
   getParentRoute: () => LayoutRoute,
 } as any)
+const LayoutAppointmentsRoute = LayoutAppointmentsRouteImport.update({
+  id: '/appointments',
+  path: '/appointments',
+  getParentRoute: () => LayoutRoute,
+} as any)
 const LayoutItemsRoute = LayoutItemsRouteImport.update({
   id: '/items',
   path: '/items',
@@ -75,6 +83,17 @@ const LayoutSettingsRoute = LayoutSettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => LayoutRoute,
 } as any)
+const LayoutAppointmentsIndexRoute = LayoutAppointmentsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LayoutAppointmentsRoute,
+} as any)
+const LayoutAppointmentsAppointmentIdRoute =
+  LayoutAppointmentsAppointmentIdRouteImport.update({
+    id: '/$appointmentId',
+    path: '/$appointmentId',
+    getParentRoute: () => LayoutAppointmentsRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -85,8 +104,11 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupRoute
   '/admin': typeof LayoutAdminRoute
   '/app': typeof LayoutAppRoute
+  '/appointments': typeof LayoutAppointmentsRouteWithChildren
   '/items': typeof LayoutItemsRoute
   '/settings': typeof LayoutSettingsRoute
+  '/appointments/$appointmentId': typeof LayoutAppointmentsAppointmentIdRoute
+  '/appointments/': typeof LayoutAppointmentsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -99,6 +121,8 @@ export interface FileRoutesByTo {
   '/app': typeof LayoutAppRoute
   '/items': typeof LayoutItemsRoute
   '/settings': typeof LayoutSettingsRoute
+  '/appointments/$appointmentId': typeof LayoutAppointmentsAppointmentIdRoute
+  '/appointments': typeof LayoutAppointmentsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -111,8 +135,11 @@ export interface FileRoutesById {
   '/signup': typeof SignupRoute
   '/_layout/admin': typeof LayoutAdminRoute
   '/_layout/app': typeof LayoutAppRoute
+  '/_layout/appointments': typeof LayoutAppointmentsRouteWithChildren
   '/_layout/items': typeof LayoutItemsRoute
   '/_layout/settings': typeof LayoutSettingsRoute
+  '/_layout/appointments/$appointmentId': typeof LayoutAppointmentsAppointmentIdRoute
+  '/_layout/appointments/': typeof LayoutAppointmentsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -125,8 +152,11 @@ export interface FileRouteTypes {
     | '/signup'
     | '/admin'
     | '/app'
+    | '/appointments'
     | '/items'
     | '/settings'
+    | '/appointments/$appointmentId'
+    | '/appointments/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -139,6 +169,8 @@ export interface FileRouteTypes {
     | '/app'
     | '/items'
     | '/settings'
+    | '/appointments/$appointmentId'
+    | '/appointments'
   id:
     | '__root__'
     | '/'
@@ -150,8 +182,11 @@ export interface FileRouteTypes {
     | '/signup'
     | '/_layout/admin'
     | '/_layout/app'
+    | '/_layout/appointments'
     | '/_layout/items'
     | '/_layout/settings'
+    | '/_layout/appointments/$appointmentId'
+    | '/_layout/appointments/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -229,6 +264,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutAppRouteImport
       parentRoute: typeof LayoutRoute
     }
+    '/_layout/appointments': {
+      id: '/_layout/appointments'
+      path: '/appointments'
+      fullPath: '/appointments'
+      preLoaderRoute: typeof LayoutAppointmentsRouteImport
+      parentRoute: typeof LayoutRoute
+    }
     '/_layout/items': {
       id: '/_layout/items'
       path: '/items'
@@ -243,12 +285,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutSettingsRouteImport
       parentRoute: typeof LayoutRoute
     }
+    '/_layout/appointments/': {
+      id: '/_layout/appointments/'
+      path: '/'
+      fullPath: '/appointments/'
+      preLoaderRoute: typeof LayoutAppointmentsIndexRouteImport
+      parentRoute: typeof LayoutAppointmentsRoute
+    }
+    '/_layout/appointments/$appointmentId': {
+      id: '/_layout/appointments/$appointmentId'
+      path: '/$appointmentId'
+      fullPath: '/appointments/$appointmentId'
+      preLoaderRoute: typeof LayoutAppointmentsAppointmentIdRouteImport
+      parentRoute: typeof LayoutAppointmentsRoute
+    }
   }
 }
+
+interface LayoutAppointmentsRouteChildren {
+  LayoutAppointmentsAppointmentIdRoute: typeof LayoutAppointmentsAppointmentIdRoute
+  LayoutAppointmentsIndexRoute: typeof LayoutAppointmentsIndexRoute
+}
+
+const LayoutAppointmentsRouteChildren: LayoutAppointmentsRouteChildren = {
+  LayoutAppointmentsAppointmentIdRoute: LayoutAppointmentsAppointmentIdRoute,
+  LayoutAppointmentsIndexRoute: LayoutAppointmentsIndexRoute,
+}
+
+const LayoutAppointmentsRouteWithChildren =
+  LayoutAppointmentsRoute._addFileChildren(LayoutAppointmentsRouteChildren)
 
 interface LayoutRouteChildren {
   LayoutAdminRoute: typeof LayoutAdminRoute
   LayoutAppRoute: typeof LayoutAppRoute
+  LayoutAppointmentsRoute: typeof LayoutAppointmentsRouteWithChildren
   LayoutItemsRoute: typeof LayoutItemsRoute
   LayoutSettingsRoute: typeof LayoutSettingsRoute
 }
@@ -256,6 +326,7 @@ interface LayoutRouteChildren {
 const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutAdminRoute: LayoutAdminRoute,
   LayoutAppRoute: LayoutAppRoute,
+  LayoutAppointmentsRoute: LayoutAppointmentsRouteWithChildren,
   LayoutItemsRoute: LayoutItemsRoute,
   LayoutSettingsRoute: LayoutSettingsRoute,
 }
