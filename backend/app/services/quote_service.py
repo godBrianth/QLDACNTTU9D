@@ -7,7 +7,6 @@ from fastapi import HTTPException, status
 from sqlmodel import Session, select
 
 from app.core.logging import get_logger
-from app.services.access_service import check_appointment_access
 from app.models import (
     Appointment,
     Customer,
@@ -24,6 +23,7 @@ from app.models import (
     User,
     get_datetime_utc,
 )
+from app.services.access_service import check_appointment_access
 
 logger = get_logger("app.services.quote_service")
 
@@ -254,7 +254,13 @@ def create_repair_quotation(
         session.add(quote)
         session.flush()
 
-        session.add(Notification(customer_id=appointment.customer_id, title="Báo giá sửa chữa mới", message=f"Báo giá {quote.quote_number} đã được tạo. Vui lòng xem và xác nhận trong mục Báo giá."))
+        session.add(
+            Notification(
+                customer_id=appointment.customer_id,
+                title="Báo giá sửa chữa mới",
+                message=f"Báo giá {quote.quote_number} đã được tạo. Vui lòng xem và xác nhận trong mục Báo giá.",
+            )
+        )
         # 6. Khởi tạo và lưu từng QuoteItem
         for p_item in prepared_items:
             db_item = QuoteItem(

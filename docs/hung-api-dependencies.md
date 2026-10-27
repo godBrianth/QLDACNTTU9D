@@ -1,5 +1,15 @@
 # API dependencies cho Frontend & QA
 
+## Cập nhật hợp đồng ngày 27/10/2026
+
+- OpenAPI runtime `http://127.0.0.1:8000/api/v1/openapi.json`: HTTP 200, **70 path / 93 operation / 0 operationId trùng**. Generated client đã sinh lại từ schema runtime, không sửa thủ công service.
+- Đã tích hợp services, slot/technician choices, booking/me/detail/change/cancel, lịch nội bộ, queue, intake, technicians/accounts/schedules, customers, devices, repair orders, quotes, invoices/payments/handover, reviews, notifications và statistics.
+- API danh sách cá nhân/chi tiết/báo giá/hóa đơn giới hạn owner; kỹ thuật viên chỉ xử lý phiếu được phân công. `/technicians/accounts` chỉ quản lý, public `/slots/technicians` không trả email/phone/user_id.
+- Không đổi URL alias `/api/...`: vẫn chạy, không công bố alias trùng trong schema. API mới ưu tiên `/api/v1/...`.
+- PostgreSQL hiện trả catalog dịch vụ rỗng; thiếu dữ liệu demo, không phải lỗi client. Không tự seed. Quản trị có thể nhập dịch vụ bằng `/workspace/services`.
+- Thanh toán là ghi nhận tiền mặt/chuyển khoản tại quầy; không có cổng thanh toán online hoặc thông tin thẻ. Ghi nhận có `request_id` chống lặp và khóa hóa đơn khi cập nhật.
+- Bảng phân tích phía dưới là **mốc audit lịch sử trước UID 770**, không phải danh sách thiếu hiện tại. Bằng chứng mới: [verification](hung-fast-track-verification.md).
+
 ## Phát hiện quan trọng
 
 `frontend/openapi-ts.config.ts` sinh từ `frontend/openapi.json`, nhưng client generated hiện chỉ export `ItemsService`, `LoginService`, `UsersService`, `PrivateService`, `UtilsService`. Backend lại mount các router nghiệp vụ tại `backend/app/main.py`. Vì thế frontend không thể gọi typed API nghiệp vụ bằng cách an toàn cho tới khi OpenAPI được xác minh và client được sinh lại theo quy trình đã duyệt.

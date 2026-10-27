@@ -22,6 +22,12 @@ function Technicians() {
   const [q, setQ] = useState("")
   const [page, setPage] = useState(0)
   const [selected, setSelected] = useState("")
+  const accounts = useQuery({
+    queryKey: ["operations", "technician-accounts"],
+    enabled: Boolean(canManage),
+    queryFn: async () =>
+      (await TechniciansService.readTechnicianAccounts()).data,
+  })
   const list = useQuery({
     queryKey: ["operations", "technicians", q, page],
     queryFn: async () =>
@@ -91,7 +97,12 @@ function Technicians() {
                 { name: "specialization", label: "Chuyên môn" },
                 {
                   name: "user_id",
-                  label: "ID tài khoản kỹ thuật viên (nếu đã tạo)",
+                  label: "Tài khoản kỹ thuật viên (tùy chọn)",
+                  options:
+                    accounts.data?.map((account) => ({
+                      value: account.id,
+                      label: `${account.full_name || "Kỹ thuật viên"} · ${account.email}`,
+                    })) ?? [],
                 },
               ]}
               submitLabel="Tạo kỹ thuật viên"
@@ -106,10 +117,56 @@ function Technicians() {
                 })
               }
             />
+            {accounts.error && (
+              <p role="alert" className="mt-3 text-sm text-destructive">
+                Không tải được tài khoản liên kết. Vui lòng thử lại sau.
+              </p>
+            )}
+            {accounts.data?.length === 0 && (
+              <p className="mt-3 text-sm text-muted-foreground">
+                Chưa có tài khoản kỹ thuật viên chưa liên kết. Quản trị viên có
+                thể tạo tài khoản ở mục Tài khoản trước.
+              </p>
+            )}
           </Panel>
         )}
         {tech && (
           <Panel title={`Ca làm việc · ${tech.full_name}`}>
+            {canManage && (
+              <div className="mb-5">
+                <ActionForm
+                  key={`edit-${tech.id}`}
+                  fields={[
+                    {
+                      name: "name",
+                      label: "Họ tên kỹ thuật viên",
+                      required: true,
+                    },
+                    { name: "phone", label: "Số điện thoại kỹ thuật viên" },
+                    {
+                      name: "specialization",
+                      label: "Chuyên môn kỹ thuật viên",
+                    },
+                  ]}
+                  initial={{
+                    name: tech.full_name,
+                    phone: tech.phone_number ?? "",
+                    specialization: tech.specialization ?? "",
+                  }}
+                  submitLabel="Lưu kỹ thuật viên"
+                  onSubmit={(v) =>
+                    TechniciansService.updateTechnician({
+                      path: { technician_id: tech.id },
+                      body: {
+                        full_name: v.name,
+                        phone_number: v.phone || null,
+                        specialization: v.specialization || null,
+                      },
+                    })
+                  }
+                />
+              </div>
+            )}
             <DataState
               pending={schedules.isPending}
               error={schedules.error}
@@ -139,6 +196,31 @@ function Technicians() {
                         WorkSchedulesService.schedulesUpdateWorkScheduleStatus({
                           path: { schedule_id: s.id },
                           body: { status: v.status },
+                        })
+                      }
+                    />
+                    <ActionForm
+                      key={`time-${s.id}`}
+                      fields={[
+                        {
+                          name: "start",
+                          label: "Giờ bắt đầu ca",
+                          type: "time",
+                          required: true,
+                        },
+                        {
+                          name: "end",
+                          label: "Giờ kết thúc ca",
+                          type: "time",
+                          required: true,
+                        },
+                      ]}
+                      initial={{ start: s.start_time, end: s.end_time }}
+                      submitLabel="Đổi giờ ca làm"
+                      onSubmit={(v) =>
+                        WorkSchedulesService.schedulesUpdateWorkSchedule({
+                          path: { schedule_id: s.id },
+                          body: { start_time: v.start, end_time: v.end },
                         })
                       }
                     />

@@ -680,6 +680,9 @@ def update_booking_appointment(
             check_can_update(
                 user=current_user, appointment=appointment, session=session
             )
+            from app.services.access_service import check_appointment_access
+
+            check_appointment_access(session, current_user, appointment)
 
         # Status check: HTTP 409 Conflict if already cancelled, completed, or in progress
         current_status = (appointment.status or "").upper()
@@ -967,6 +970,9 @@ def confirm_appointment(
 
         # 2. Check authorization
         check_can_confirm(current_user)
+        from app.services.access_service import check_appointment_access
+
+        check_appointment_access(session, current_user, appointment)
 
         # 3. Status checks
         current_status = (appointment.status or "").upper()

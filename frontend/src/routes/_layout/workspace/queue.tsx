@@ -1,12 +1,14 @@
 import { useQuery } from "@tanstack/react-query"
 import { createFileRoute, Link } from "@tanstack/react-router"
 import { useState } from "react"
-import { QueueService } from "@/client"
+import { QueueService, ServicesService } from "@/client"
 import {
+  ActionForm,
   DataState,
   dateTime,
   Pager,
   PageTitle,
+  Panel,
   Status,
 } from "@/components/Operations/shared"
 import { Button } from "@/components/ui/button"
@@ -17,6 +19,10 @@ export const Route = createFileRoute("/_layout/workspace/queue")({
 function Queue() {
   const [date, setDate] = useState("")
   const [page, setPage] = useState(0)
+  const services = useQuery({
+    queryKey: ["services"],
+    queryFn: async () => (await ServicesService.readPublicServices()).data,
+  })
   const queue = useQuery({
     queryKey: ["operations", "queue", date, page],
     queryFn: async () =>
@@ -36,6 +42,55 @@ function Queue() {
           <Link to="/workspace/appointments">Xử lý lịch hẹn</Link>
         </Button>
       </PageTitle>
+      <div className="mb-6">
+        <Panel title="Đặt chỗ nhanh">
+          <ActionForm
+            fields={[
+              { name: "name", label: "Tên khách", required: true },
+              {
+                name: "phone",
+                label: "Số điện thoại khách",
+                type: "tel",
+                required: true,
+              },
+              {
+                name: "service",
+                label: "Dịch vụ",
+                required: true,
+                options:
+                  services.data?.data.map((s) => ({
+                    value: s.id,
+                    label: s.name,
+                  })) ?? [],
+              },
+              {
+                name: "date",
+                label: "Ngày đặt chỗ",
+                type: "date",
+                required: true,
+              },
+              {
+                name: "time",
+                label: "Giờ đặt chỗ",
+                type: "time",
+                required: true,
+              },
+            ]}
+            submitLabel="Thêm vào hàng chờ"
+            onSubmit={(v) =>
+              QueueService.addAppointmentToQueue({
+                body: {
+                  customer_name: v.name,
+                  customer_phone: v.phone,
+                  service_id: v.service,
+                  appointment_date: v.date,
+                  start_time: v.time,
+                },
+              })
+            }
+          />
+        </Panel>
+      </div>
       <Input
         className="mb-5 max-w-xs"
         aria-label="Ngày hàng chờ"

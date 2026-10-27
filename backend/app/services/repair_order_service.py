@@ -7,9 +7,9 @@ from app.core.logging import get_logger
 from app.models import (
     Appointment,
     AppointmentStatus,
-    Notification,
     AssignTechnicianData,
     AssignTechnicianRequest,
+    Notification,
     RepairStatusHistory,
     RepairStatusUpdateData,
     RepairStatusUpdateRequest,
@@ -115,7 +115,13 @@ def update_repair_status(
         )
         session.add(history)
 
-        session.add(Notification(customer_id=appointment.customer_id, title="Cập nhật sửa chữa", message=f"Phiếu {appointment.appointment_number} chuyển sang {new_status}."))
+        session.add(
+            Notification(
+                customer_id=appointment.customer_id,
+                title="Cập nhật sửa chữa",
+                message=f"Phiếu {appointment.appointment_number} chuyển sang {new_status}.",
+            )
+        )
         appointment.status = new_status
         appointment.updated_at = now
         session.add(appointment)

@@ -167,6 +167,40 @@ function StaffAppointments() {
                   {canChange && (
                     <>
                       <ActionForm
+                        key={`reschedule-${selected}`}
+                        fields={[
+                          {
+                            name: "date",
+                            label: "Ngày hẹn mới",
+                            type: "date",
+                            required: true,
+                          },
+                          {
+                            name: "time",
+                            label: "Giờ hẹn mới",
+                            type: "time",
+                            required: true,
+                          },
+                          {
+                            name: "reason",
+                            label: "Lý do đổi lịch",
+                            required: true,
+                          },
+                        ]}
+                        submitLabel="Đổi lịch hẹn"
+                        confirm
+                        onSubmit={(v) =>
+                          AppointmentsService.updateAppointment({
+                            path: { appointment_id: selected },
+                            body: {
+                              appointment_date: v.date,
+                              start_time: v.time,
+                              reschedule_reason: v.reason,
+                            },
+                          })
+                        }
+                      />
+                      <ActionForm
                         fields={[
                           {
                             name: "reason",

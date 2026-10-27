@@ -78,16 +78,12 @@ app.include_router(
 )
 app.include_router(customers_route.router, prefix="/api", include_in_schema=False)
 app.include_router(technicians_route.router, prefix="/api", include_in_schema=False)
-app.include_router(
-    work_schedules_route.router, prefix="/api", include_in_schema=False
-)
+app.include_router(work_schedules_route.router, prefix="/api", include_in_schema=False)
 app.include_router(queue_route.router, prefix="/api", include_in_schema=False)
 app.include_router(intake_route.router, prefix="/api", include_in_schema=False)
 app.include_router(quotes_route.router, prefix="/api", include_in_schema=False)
 app.include_router(devices_route.router, prefix="/api", include_in_schema=False)
-app.include_router(
-    repair_orders_route.router, prefix="/api", include_in_schema=False
-)
+app.include_router(repair_orders_route.router, prefix="/api", include_in_schema=False)
 app.include_router(services_route.router, prefix="/api", include_in_schema=False)
 app.include_router(login_route.router, prefix="/api", include_in_schema=False)
 if FRONTEND_DIR.exists():

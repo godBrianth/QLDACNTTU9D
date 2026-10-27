@@ -1,10 +1,10 @@
 import type { ColumnDef } from "@tanstack/react-table"
 
 import type { UserPublic } from "@/client"
+import { getRoleLabel } from "@/components/Sidebar/roles"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
 import { UserActionsMenu } from "./UserActionsMenu"
-import { getRoleLabel } from "@/components/Sidebar/roles"
 
 export type UserTableData = UserPublic & {
   isCurrentUser: boolean

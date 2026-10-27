@@ -16,6 +16,7 @@ function BookingPage() {
   const [serviceId, setServiceId] = useState("")
   const [date, setDate] = useState("")
   const [time, setTime] = useState("")
+  const [technicianId, setTechnicianId] = useState("")
   const [name, setName] = useState("")
   const [phone, setPhone] = useState("")
   const [brand, setBrand] = useState("")
@@ -28,12 +29,26 @@ function BookingPage() {
     queryFn: async () => (await ServicesService.readPublicServices()).data,
   })
   const slots = useQuery({
-    queryKey: ["slots", serviceId, date],
+    queryKey: ["slots", serviceId, date, technicianId],
     enabled: Boolean(serviceId && date),
     queryFn: async () =>
       (
         await SlotsService.getAvailableSlots({
-          query: { date, service_id: serviceId },
+          query: {
+            date,
+            service_id: serviceId,
+            technician_id: technicianId || undefined,
+          },
+        })
+      ).data,
+  })
+  const technicians = useQuery({
+    queryKey: ["booking-technicians", serviceId, date],
+    enabled: Boolean(serviceId && date),
+    queryFn: async () =>
+      (
+        await SlotsService.readBookingTechnicians({
+          query: { service_id: serviceId, slot_date: date },
         })
       ).data,
   })
@@ -48,6 +63,7 @@ function BookingPage() {
           device_model: model || undefined,
           appointment_date: date,
           start_time: time,
+          technician_id: technicianId || undefined,
         },
       }),
     onSuccess: ({ data }) =>
@@ -93,6 +109,7 @@ function BookingPage() {
                   onChange={(event) => {
                     setServiceId(event.target.value)
                     setTime("")
+                    setTechnicianId("")
                   }}
                   required
                 >
@@ -123,9 +140,32 @@ function BookingPage() {
                   onChange={(event) => {
                     setDate(event.target.value)
                     setTime("")
+                    setTechnicianId("")
                   }}
                   required
                 />
+              </Field>
+              <Field
+                label="Kỹ thuật viên (tùy chọn)"
+                htmlFor="booking-technician"
+              >
+                <select
+                  id="booking-technician"
+                  className="h-10 w-full rounded-md border bg-background px-3"
+                  value={technicianId}
+                  onChange={(event) => {
+                    setTechnicianId(event.target.value)
+                    setTime("")
+                  }}
+                >
+                  <option value="">Hệ thống tự phân công</option>
+                  {technicians.data?.map((t) => (
+                    <option key={t.id} value={t.id}>
+                      {t.full_name}
+                      {t.specialization ? ` · ${t.specialization}` : ""}
+                    </option>
+                  ))}
+                </select>
               </Field>
               <fieldset>
                 <legend className="text-sm font-medium">Khung giờ trống</legend>
@@ -195,6 +235,19 @@ function BookingPage() {
                 >
                   {result}
                 </p>
+              )}
+              {serviceId && date && time && (
+                <div className="rounded-lg border bg-muted/40 p-4 text-sm">
+                  <p className="font-medium">Kiểm tra trước khi xác nhận</p>
+                  <p>
+                    {services.data?.data.find((s) => s.id === serviceId)?.name}{" "}
+                    · {date} · {time}
+                  </p>
+                  <p>
+                    {technicians.data?.find((t) => t.id === technicianId)
+                      ?.full_name || "Hệ thống tự phân công kỹ thuật viên"}
+                  </p>
+                </div>
               )}
               <Button
                 type="submit"

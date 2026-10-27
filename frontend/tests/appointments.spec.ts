@@ -35,7 +35,7 @@ test("khách xem lịch riêng và hủy lịch bằng API mock", async ({ page 
     ],
     status_history: [],
   }
-  await page.route("**/api/v1/appointments/me", (route) =>
+  await page.route("**/api/v1/appointments/me**", (route) =>
     route.fulfill({
       contentType: "application/json",
       body: JSON.stringify({ data: [appointment], count: 1 }),
@@ -85,5 +85,51 @@ test("khách xem lịch riêng và hủy lịch bằng API mock", async ({ page 
       response.status() === 200,
   )
   await page.getByRole("button", { name: "Hủy lịch" }).click()
+  await page.getByRole("button", { name: "Xác nhận hủy", exact: true }).click()
   await cancelled
+  await expect(page.getByRole("status")).toContainText("Đã hủy lịch thành công")
+})
+
+test("đổi lịch giữ quyền owner và gửi ngày giờ mới", async ({ page }) => {
+  await page.addInitScript(() =>
+    localStorage.setItem("access_token", "isolated-test-session"),
+  )
+  await page.route("**/api/v1/users/me", (route) =>
+    route.fulfill({
+      json: { id: appointmentId, role: "customer", is_active: true },
+    }),
+  )
+  await page.route(`**/api/v1/appointments/${appointmentId}/detail`, (route) =>
+    route.fulfill({
+      json: {
+        id: appointmentId,
+        appointment_number: "APPT-RESCHEDULE",
+        appointment_date: "2030-01-15T09:00:00Z",
+        status: "CONFIRMED",
+        services: [{ service_id: appointmentId, service_name: "Thay pin" }],
+      },
+    }),
+  )
+  await page.route("**/api/v1/slots/available?*", (route) =>
+    route.fulfill({
+      json: { available_slots: [{ start_time: "11:00", available: true }] },
+    }),
+  )
+  await page.route(`**/api/v1/appointments/${appointmentId}`, async (route) => {
+    expect(route.request().method()).toBe("PATCH")
+    expect(route.request().postDataJSON()).toMatchObject({
+      appointment_date: "2030-01-16",
+      start_time: "11:00",
+      reschedule_reason: "Đổi kế hoạch",
+    })
+    await route.fulfill({
+      json: { appointment_id: appointmentId, message: "Đã cập nhật" },
+    })
+  })
+  await page.goto(`/appointments/${appointmentId}`)
+  await page.getByLabel("Ngày mới").fill("2030-01-16")
+  await page.getByRole("button", { name: "11:00" }).click()
+  await page.getByLabel("Lý do thay đổi hoặc hủy").fill("Đổi kế hoạch")
+  await page.getByRole("button", { name: "Đổi lịch", exact: true }).click()
+  await expect(page.getByRole("status")).toContainText("Đã đổi lịch thành công")
 })

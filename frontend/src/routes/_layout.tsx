@@ -23,11 +23,11 @@ function Layout() {
       <AppSidebar />
       <SidebarInset>
         <AppHeader />
-        <main className="flex-1 p-6 md:p-8">
+        <div className="flex-1 p-6 md:p-8">
           <div className="mx-auto max-w-7xl">
             <Outlet />
           </div>
-        </main>
+        </div>
         <Footer />
       </SidebarInset>
     </SidebarProvider>

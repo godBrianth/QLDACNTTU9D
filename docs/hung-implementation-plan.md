@@ -1,5 +1,7 @@
 # Kế hoạch triển khai Frontend & QA của Hưng
 
+> Cập nhật 27/10/2026: kế hoạch gốc dưới đây được giữ nguyên cho lịch sử. Nhóm B–E đã được triển khai và kiểm thử theo [tiến độ hiện tại](hung-fast-track-progress.md); xem [108 UID hiện trạng](hung-fast-track-status.md). Nhận định client/API thiếu trong kế hoạch gốc đã được xử lý, không phải blocker hiện tại.
+
 > Lập ngày 26/10/2026 từ `docs/project/Task_cua_Hung.xlsx`, `docs/project/QLDACNTT.docx`, `AGENTS.md` và mã nguồn hiện tại. Đây là kế hoạch, không phải bằng chứng đã hoàn thành chức năng.
 
 ## Cách đọc kế hoạch

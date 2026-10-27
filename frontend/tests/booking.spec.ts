@@ -5,6 +5,9 @@ test.use({ storageState: { cookies: [], origins: [] } })
 const serviceId = "11111111-1111-4111-8111-111111111111"
 
 async function mockBookingApi(page: Page) {
+  await page.route("**/api/v1/slots/technicians?*", (route) =>
+    route.fulfill({ json: [] }),
+  )
   await page.route("**/api/v1/services", (route) =>
     route.fulfill({
       contentType: "application/json",
@@ -85,4 +88,37 @@ test("lỗi API hiển thị và double click chỉ gửi một yêu cầu", asy
   await page.getByRole("button", { name: "Xác nhận đặt lịch" }).dblclick()
   await expect(page.getByRole("alert")).toBeVisible()
   await expect.poll(() => requests).toBe(1)
+})
+
+test("chọn kỹ thuật viên là tùy chọn và được gửi đúng vào slot, booking", async ({
+  page,
+}) => {
+  const technicianId = "33333333-3333-4333-8333-333333333333"
+  await mockBookingApi(page)
+  await page.route("**/api/v1/slots/technicians?*", (route) =>
+    route.fulfill({
+      json: [{ id: technicianId, full_name: "Kỹ thuật viên thử nghiệm" }],
+    }),
+  )
+  await page.route("**/api/v1/appointments", async (route) => {
+    expect(route.request().postDataJSON().technician_id).toBe(technicianId)
+    await route.fulfill({
+      status: 201,
+      json: { appointment_code: "APPT-TECH" },
+    })
+  })
+  await page.goto("/booking")
+  await page.getByLabel("Dịch vụ", { exact: true }).selectOption(serviceId)
+  await page.getByLabel("Ngày hẹn").fill("2030-01-15")
+  const slots = page.waitForRequest(
+    (request) =>
+      request.url().includes("/slots/available") &&
+      new URL(request.url()).searchParams.get("technician_id") === technicianId,
+  )
+  await page.getByLabel("Kỹ thuật viên (tùy chọn)").selectOption(technicianId)
+  await slots
+  await page.getByRole("button", { name: "09:00" }).click()
+  await page.getByLabel("Số điện thoại").fill("0900000000")
+  await page.getByRole("button", { name: "Xác nhận đặt lịch" }).click()
+  await expect(page.getByRole("status")).toContainText("APPT-TECH")
 })

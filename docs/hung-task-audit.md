@@ -1,10 +1,12 @@
 # Audit 108 task Frontend & QA của Hưng
 
+> Audit gốc ngày 26/10/2026 được giữ lại để đối chiếu. Trạng thái hiện tại sau fast-track ngày 27/10/2026 nằm trong [bảng đủ 108 UID](hung-fast-track-status.md), [tiến độ](hung-fast-track-progress.md) và [bằng chứng kiểm thử](hung-fast-track-verification.md). Các nhận định thiếu code/client bên dưới là tại thời điểm audit gốc, không áp dụng cho mã mới. UID 770 đã xác minh hoàn thành, mã ở commit `486394b`; client tiếp tục được regenerate theo API mới.
+
 ## Phạm vi và quy ước bằng chứng
 
 Nguồn task: `docs/project/Task_cua_Hung.xlsx`; nguồn nghiệp vụ: `docs/project/QLDACNTT.docx`; nguồn code: repository tại thời điểm audit. Không có log CI, báo cáo Playwright, ảnh demo hoặc biên bản họp trong repository để xác nhận runtime.
 
-- **Đã xác minh hoàn thành:** có mã đúng nghiệp vụ và bằng chứng test/kiểm tra pass. **Hiện không có task nào đạt ngưỡng này.**
+- **Đã xác minh hoàn thành:** có mã đúng nghiệp vụ và bằng chứng test/kiểm tra pass. **Tại thời điểm audit gốc chưa có task đạt ngưỡng này; xem bảng hiện trạng được liên kết phía trên.**
 - **Hoàn thành một phần:** có một phần phù hợp, nhưng thiếu phạm vi nghiệp vụ, tích hợp, state UI, AC hoặc kiểm thử.
 - **Chưa thực hiện:** không có mã/tài liệu đúng task trong repository.
 - **Chưa đủ bằng chứng:** có dấu vết code/config/test, nhưng chưa chứng minh được chức năng chạy hoặc bàn giao đúng AC.

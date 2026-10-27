@@ -1,48 +1,73 @@
 # FixCare — Fast-track progress
 
-## Trạng thái hiện tại
+Cập nhật 27/10/2026. Bảng đầy đủ giữ nguyên 108 UID/WBS/Sprint/tên/thứ tự Excel: [status](hung-fast-track-status.md). Bằng chứng: [verification](hung-fast-track-verification.md). Khởi động, demo và bàn giao: [demo](hung-fast-track-demo.md).
 
-- DONE: UID 767 (layout), UID 770 (HTTP client), UID 772 (landing page).
-- PARTIAL: UID 771 — Frontend lưu và làm mới access token bằng refresh-token rotation đã có từ FastAPI; mock smoke test PASS, chưa chạy lại toàn bộ suite auth tích hợp.
-- PARTIAL: UID 778, 779, 781, 824, 825 — các màn hình/API đăng ký, đăng nhập, hồ sơ đã có; cần chạy lại acceptance suite sau thay đổi token.
-- DONE: Luồng tạo lịch cơ bản — khách chọn dịch vụ, ngày, khung giờ, thông tin liên hệ và gửi `POST /api/v1/appointments` bằng API thật. GET `/api/v1/services` chỉ trả dịch vụ đang hoạt động; khách không phải chọn kỹ thuật viên.
-- DONE: Danh sách, chi tiết, đổi và hủy lịch cá nhân. `GET /appointments/me` lấy Customer theo tài khoản trong Bearer token, không nhận `customer_id` từ frontend.
-- TODO: Tiếp nhận/báo giá/sửa chữa (Sprint 5).
+## Kết quả hiện tại
 
-## API đã tích hợp thật
+- **72 DONE / 28 PARTIAL / 8 BLOCKED / 0 TODO** theo bảng 108 task. DONE là nghiệm thu kỹ thuật phần được test; không đồng nghĩa đã nghiệm thu nhóm/deploy hay E2E ghi PostgreSQL.
+- UID 767 (`c5b53b8`), 772 (`55d9030`), 770 (`486394b`) được giữ nguyên. UID 770 đã xác minh hoàn thành; không làm lại HTTP client.
+- Nhóm A: token refresh/rotation, đăng nhập/đăng ký/hồ sơ được tái dùng. Sửa thêm việc cache dữ liệu riêng còn tồn tại sau logout, có test tái hiện FAIL trước sửa và PASS sau sửa.
+- Nhóm B: tạo lịch, chọn kỹ thuật viên tùy chọn, danh sách/chi tiết lịch của mình, đổi/hủy hợp lệ. Đã sửa route cha thiếu Outlet bằng index route, kiểm tra cả click link và reload URL chi tiết.
+- Nhóm C: dashboard/KPI, tìm/lọc/danh sách/chi tiết/confirm/reschedule/cancel/assign, hàng chờ và đặt chỗ nhanh, hồ sơ khách, kỹ thuật viên và ca làm việc.
+- Nhóm D: tiếp nhận từ lịch hoặc vãng lai, thiết bị, chẩn đoán/ghi chú, báo giá nhiều hạng mục/duyệt/từ chối, phiếu sửa và việc kỹ thuật viên theo phân công.
+- Nhóm E: hóa đơn từ quote ACCEPTED sau COMPLETED, thu tiền tại quầy, lịch sử khoản thu/bàn giao, review/notification riêng, quản trị tài khoản/role, dịch vụ, báo cáo/doanh thu/CSV.
+- Công khai: landing/layout giữ nguyên; bổ sung `/services`, `/services/<id>` và `/about`, dữ liệu dịch vụ từ API.
+- Không có cổng thanh toán online; không giả lập đã chuyển tiền. Không thêm dependency, migration, seed hoặc thay đổi .env.
 
-- Nhóm B commit: `db24bc8`. Cache `.tanstack` không stage; whitespace được xử lý bởi generator postProcess.
-- Nhóm C (mã đã tích hợp, kiểm thử tổng thể NOT RUN): `/workspace`, `/workspace/appointments`, `/workspace/queue`, `/workspace/customers`, `/workspace/technicians`. Generated API: lịch sử/chi tiết/xác nhận/hủy/phân công lịch; tiếp nhận; customers CRUD thêm/sửa; technicians thêm/trạng thái; lịch làm việc thêm/trạng thái. UID 802/804/803/805/793/806/807/812/816/817/819/2008: PARTIAL chờ kiểm thử.
+## API và dữ liệu thật
 
-- Authentication: login, register, current user, refresh token, revoke refresh token.
-- User profile: read/update current user và đổi mật khẩu.
-- HTTP client: Bearer access token, refresh một lần khi nhận 401, không tự logout cho 403/404/422/500.
-- Booking: danh sách dịch vụ công khai, khung giờ còn trống và tạo lịch.
+OpenAPI runtime: **HTTP 200 / 70 path / 93 operation / 0 operationId trùng**; schema snapshot `frontend/openapi.json` và generated client đồng bộ.
 
-## Kiểm thử gần nhất
+- Public services/list/detail; slots available/check và technician choices chỉ có id/tên/chuyên môn.
+- Appointments create/me/detail/history/update/confirm/cancel/assign; queue và intake.
+- Customers, technicians CRUD/status, work-schedules; `GET /technicians/accounts` chỉ quản lý, chọn tài khoản active chưa liên kết.
+- Devices update; repair-orders list/detail/status/assign; quotes list/detail/create/accept/reject.
+- Invoices list/detail/issue, payments với request_id chống lặp/khóa hóa đơn/chặn thu dư, handover chỉ sau PAID.
+- Reviews owner sau COMPLETED và chống trùng; notifications lọc user/customer; statistics RequireManager dựa trên payments SUCCESS.
+- Không dùng customer_id tùy ý để đọc lịch cá nhân. Backend checks owner/assigned technician cả detail/lookup/update/quote/repair/queue.
+- Alias `/api/...` cũ vẫn có; OpenAPI chỉ công bố một bộ để generator ổn định.
+- **PostgreSQL đang trả 0 dịch vụ active**. API catalog HTTP 200, không lỗi kết nối nhưng chưa đủ dữ liệu đặt lịch thật. Người phụ trách cần nhập dịch vụ/ca làm bằng UI trên môi trường cho phép; agent không tự tạo.
 
-- Nhóm D commit `3c8fabc`.
-- Nhóm E: đã tích hợp hóa đơn từ báo giá đã duyệt sau khi hoàn tất sửa; thanh toán tiền mặt/chuyển khoản ghi nhận tại quầy có request_id chống lặp, khóa hóa đơn và chặn quá số dư; bàn giao; review theo owner; thông báo riêng; thống kê theo khoản thực thu; quản lý dịch vụ và role tài khoản. Không có tích hợp cổng thanh toán online (ngoài phạm vi DOCX).
-- Backend commerce/ownership: 6/6 PASS trên SQLite trong bộ nhớ với `FIXCARE_TEST_SQLITE=1`. Không dùng PostgreSQL thật cho test ghi dữ liệu. Frontend C–E E2E tổng thể đang chờ chạy.
-- Bổ sung API integration từ tạo lịch → tiếp nhận → báo giá → duyệt → kỹ thuật viên xử lý → hóa đơn → thu tiền → bàn giao: tổng backend mới 7/7 PASS trên SQLite. Playwright operations + điều hướng/reload appointments: 7/7 PASS bằng mock (không ghi DB thật).
-- UID 902: đã thêm workflow build và smoke API mock; chưa chạy GitHub Actions, PARTIAL. Không có push/deploy trong phiên này.
-- UID 776/777/775/798/799/800/801/814/815/818/821/822/823/2010/2014: đã có code, PARTIAL trước kiểm thử nghiệm thu.
+## Kiểm thử đã chạy
 
-- Nhóm C commit `5f33005`: typecheck/build PASS; kiểm thử nghiệp vụ tổng thể NOT RUN.
-- Nhóm D: đã có trang `/workspace/repairs`, `/workspace/intake`, `/quotes`; thêm API list/detail repair, list/detail/reject quote theo owner/assignment, bắt buộc token khi đổi lịch. UID 795/796/797/806/807/808/809/810/811/813/820/2009: PARTIAL chờ kiểm thử; UI có code, chưa coi là nghiệm thu.
+| Kiểm tra | Kết quả | Phạm vi |
+|---|---|---|
+| Backend regression | PASS 152/152, exit 0, 38,30s | Auth/users + slots/appointments/history + customers/technicians/schedules/queue/intake/quotes/repairs + commerce workflow; SQLite trong bộ nhớ. |
+| Playwright tổng thể | PASS 48/48, exit 0, 2,2 phút | Auth setup, login, HTTP errors/refresh, landing/layout, booking, appointments, operations, services, account UI. |
+| Hai dashboard bổ sung | PASS 2/2, exit 0, 5,5s | KPI nhân viên và việc kỹ thuật viên. |
+| Sau hotfix cache phiên | PASS 22/22, exit 0, 57,9s | Auth setup + login + HTTP/refresh + 4 account cases (có đổi tài khoản). Trùng một phần với lượt 48, không cộng thành 72 test độc lập. |
+| Tổng test trình duyệt khác nhau | PASS 51 case | Tính theo danh sách test hiện tại, qua các lượt trên; không phải một lệnh chạy 51 case. |
+| TypeScript | PASS | `bunx tsc --noEmit -p tsconfig.build.json`; package không có script typecheck riêng. |
+| Production build | PASS | `bun run build` (bao gồm tsc + Vite). |
+| Biome read-only | PASS | Các file source/test/config thay đổi; không dùng script lint --write --unsafe toàn repo. |
+| Ruff lint + format check | PASS | 27 file Python thay đổi so với trước fast-track. |
+| Runtime contract/catalog | PASS | OpenAPI 200, operationId duy nhất; services 200, catalog rỗng. |
+| Browser nghiệp vụ ghi PostgreSQL | NOT RUN | Không ghi lịch/đổi/hủy/thu tiền thật chỉ để test; cần database test riêng. |
+| GitHub Actions/deploy/email Mailpit round-trip | NOT RUN | Không push/deploy; chưa kiểm tra mail thực tế. |
 
-- Nhóm B: auth setup 1/1 PASS; booking smoke 2/2 PASS; appointments smoke 1/1 PASS; TypeScript, Biome và production build PASS.
-- Quy trình generator: tự chuẩn hóa whitespace cuối dòng trong `src/client` bằng postProcess; không sửa nội dung nghiệp vụ generated. Các kết quả Nhóm B ở trên là bằng chứng lượt trước, không chạy lại toàn bộ suite khi chỉ sửa whitespace.
+Bản build cuối sau hotfix cache được chạy lại trước commit; kết quả/lệnh và hạn chế xem verification. Kiểm thử không thay thế nghiệm thu nghiệp vụ của nhóm.
 
-- UID 770: OpenAPI 52 path / 70 operation / 0 operationId trùng; typecheck, build, Biome và Playwright HTTP error 7/7 PASS.
-- UID 767: auth setup 1/1 và login 10/10 PASS.
-- UID 772: landing/layout 8/8 PASS.
-- Nhóm A token refresh: Playwright mock smoke test PASS 1/1; Biome và TypeScript PASS; production build PASS.
+## Commit cục bộ
 
-## Kịch bản demo ưu tiên
+| Nhóm | Commit | Nội dung |
+|---|---|---|
+| B | `db24bc8` | Customer booking/appointment management và generator postProcess chuẩn hóa trailing whitespace. |
+| C | `5f33005` | Reception workspace, lịch/hàng chờ/khách/nhân sự/ca làm. |
+| D | `3c8fabc` | Repair/quote workflow và quyền owner/assigned. |
+| E | `b091d37` | Invoice/payment/review/notifications/reporting và service/account management. |
+| QA cuối/hardening | Xem commit chứa bản cập nhật tài liệu này | Scope queue/slot, technician choices/accounts, UX/semantic headings, cache logout và regression coverage. |
 
-1. Khách đăng ký hoặc đăng nhập.
-2. Khách đặt lịch sửa điện thoại.
-3. Nhân viên xác nhận lịch, tiếp nhận máy và tạo báo giá.
-4. Kỹ thuật viên nhận việc, cập nhật tiến độ.
-5. Nhân viên hoàn tất sửa chữa và ghi nhận thanh toán khi API có sẵn.
+Không push. Không stage cache .tanstack, auth state, .env hoặc báo cáo chứa token. Cache .tanstack đã tracked từ commit cũ vẫn có thể làm working tree không sạch; không đưa vào commit mới.
+
+## Phần còn lại, không tự nhận hoàn thành
+
+- 7 UID tích hợp Sprint: chưa có E2E browser ghi PostgreSQL test riêng; API chain đã PASS SQLite.
+- Acceptance/DoD Sprint và một số UID UI hoàn chỉnh còn PARTIAL vì chưa phủ mọi viewport/nhánh lỗi/wireframe và xác nhận nhóm.
+- UID 780: cần email Mailpit round-trip thực tế; UID 902: workflow cần chạy GitHub thật; UID 831: cần xác nhận nhận bàn giao.
+- UID 2016/2031/2046/2061/2077/2093/2109: cần họp thật/biên bản. UID 830: cần xác nhận release từ người phụ trách.
+- In hiện là danh sách hóa đơn qua trình duyệt, chưa có PDF hóa đơn riêng/thuế; concurrency PostgreSQL chưa test; dropdown có giới hạn 100 ở một số màn.
+- Dữ liệu local có thể `role=customer` nhưng `is_superuser=true`: không tự sửa DB; quyền superuser là bypass Backend hiện có. Dùng tài khoản role riêng khi demo.
+
+## Hướng dẫn tiếp tục
+
+Ưu tiên cấp database PostgreSQL test độc lập và dữ liệu demo được người dùng nhập qua UI; sau đó test xuyên vai trò khách → nhân viên → kỹ thuật viên → thu tiền. Không triển khai lại các route đã làm. Lệnh/prompt tiếp tục trong [demo](hung-fast-track-demo.md).

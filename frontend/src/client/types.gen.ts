@@ -601,6 +601,24 @@ export type Body_login_login_access_token = {
 };
 
 /**
+ * BookingTechnician
+ */
+export type BookingTechnician = {
+    /**
+     * Id
+     */
+    id: string;
+    /**
+     * Full Name
+     */
+    full_name: string;
+    /**
+     * Specialization
+     */
+    specialization?: string | null;
+};
+
+/**
  * CustomerCreate
  */
 export type CustomerCreate = {
@@ -2104,6 +2122,24 @@ export type StatisticsResponse = {
 };
 
 /**
+ * TechnicianAccountChoice
+ */
+export type TechnicianAccountChoice = {
+    /**
+     * Id
+     */
+    id: string;
+    /**
+     * Full Name
+     */
+    full_name: string | null;
+    /**
+     * Email
+     */
+    email: string;
+};
+
+/**
  * TechnicianCreate
  */
 export type TechnicianCreate = {
@@ -3185,6 +3221,42 @@ export type itemsUpdateItemResponses = {
 
 export type itemsUpdateItemResponse = itemsUpdateItemResponses[keyof itemsUpdateItemResponses];
 
+export type slotsReadBookingTechniciansData = {
+    body?: never;
+    path?: never;
+    query: {
+        /**
+         * Service Id
+         */
+        service_id: string;
+        /**
+         * Slot Date
+         */
+        slot_date: string;
+    };
+    url: '/api/v1/slots/technicians';
+};
+
+export type slotsReadBookingTechniciansErrors = {
+    /**
+     * Validation Error
+     */
+    422: HTTPValidationError;
+};
+
+export type slotsReadBookingTechniciansError = slotsReadBookingTechniciansErrors[keyof slotsReadBookingTechniciansErrors];
+
+export type slotsReadBookingTechniciansResponses = {
+    /**
+     * Response Slots-Read Booking Technicians
+     *
+     * Successful Response
+     */
+    200: Array<BookingTechnician>;
+};
+
+export type slotsReadBookingTechniciansResponse = slotsReadBookingTechniciansResponses[keyof slotsReadBookingTechniciansResponses];
+
 export type slotsGetAvailableSlotsData = {
     body?: never;
     path?: never;
@@ -3953,6 +4025,24 @@ export type customersReadCustomerAppointmentsResponses = {
 };
 
 export type customersReadCustomerAppointmentsResponse = customersReadCustomerAppointmentsResponses[keyof customersReadCustomerAppointmentsResponses];
+
+export type techniciansReadTechnicianAccountsData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/v1/technicians/accounts';
+};
+
+export type techniciansReadTechnicianAccountsResponses = {
+    /**
+     * Response Technicians-Read Technician Accounts
+     *
+     * Successful Response
+     */
+    200: Array<TechnicianAccountChoice>;
+};
+
+export type techniciansReadTechnicianAccountsResponse = techniciansReadTechnicianAccountsResponses[keyof techniciansReadTechnicianAccountsResponses];
 
 export type techniciansReadTechniciansData = {
     body?: never;

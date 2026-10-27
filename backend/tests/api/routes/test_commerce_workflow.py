@@ -77,6 +77,70 @@ def approved_quote(db: Session, appointment: Appointment) -> Quote:
     return quote
 
 
+def test_technician_account_choices_and_public_privacy(
+    client: TestClient, db: Session
+) -> None:
+    _, manager_headers = account(db, "manager")
+    _, customer_headers = account(db, "customer")
+    technician_user, _ = account(db, "technician")
+    invalid_user, _ = account(db, "customer")
+    endpoint = "/api/v1/technicians/accounts"
+    assert client.get(endpoint, headers=customer_headers).status_code == 403
+    choices = client.get(endpoint, headers=manager_headers)
+    assert choices.status_code == 200
+    selected = next(
+        row for row in choices.json() if row["id"] == str(technician_user.id)
+    )
+    assert set(selected) == {"id", "full_name", "email"}
+    assert (
+        client.post(
+            "/api/v1/technicians",
+            headers=manager_headers,
+            json={
+                "full_name": "Invalid role",
+                "user_id": str(invalid_user.id),
+            },
+        ).status_code
+        == 422
+    )
+    linked = client.post(
+        "/api/v1/technicians",
+        headers=manager_headers,
+        json={
+            "full_name": "Public technician",
+            "user_id": str(technician_user.id),
+        },
+    )
+    assert linked.status_code == 201
+    assert not any(
+        row["id"] == str(technician_user.id)
+        for row in client.get(endpoint, headers=manager_headers).json()
+    )
+    service = Service(
+        name="Privacy test", base_price=100000, estimated_duration_minutes=30
+    )
+    db.add(service)
+    db.flush()
+    future = date.today() + timedelta(days=20)
+    db.add(
+        TechnicianSchedule(
+            technician_id=uuid.UUID(linked.json()["id"]),
+            work_date=future,
+            start_time=time(8),
+            end_time=time(17),
+            status="AVAILABLE",
+        )
+    )
+    db.commit()
+    public = client.get(
+        "/api/v1/slots/technicians",
+        params={"service_id": str(service.id), "slot_date": future.isoformat()},
+    )
+    assert public.status_code == 200
+    row = next(row for row in public.json() if row["id"] == linked.json()["id"])
+    assert set(row) == {"id", "full_name", "specialization"}
+
+
 def test_invoice_payment_owner_and_idempotency(client: TestClient, db: Session) -> None:
     owner, owner_headers = account(db, "customer")
     _, other_headers = account(db, "customer")

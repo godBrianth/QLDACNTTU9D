@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -121,7 +122,9 @@ export function Panel({
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-lg">{title}</CardTitle>
+        <CardTitle className="text-lg">
+          <h2>{title}</h2>
+        </CardTitle>
       </CardHeader>
       <CardContent>{children}</CardContent>
     </Card>
@@ -257,6 +260,12 @@ export function ActionForm({
             <select
               id={`${formId}-${field.name}`}
               className="h-10 rounded-md border bg-background px-3"
+              aria-invalid={Boolean(form.formState.errors[field.name])}
+              aria-describedby={
+                form.formState.errors[field.name]
+                  ? `${formId}-${field.name}-error`
+                  : undefined
+              }
               {...form.register(field.name)}
             >
               <option value="">Chọn {field.label.toLowerCase()}</option>
@@ -273,11 +282,19 @@ export function ActionForm({
               min={field.min}
               max={field.max}
               aria-invalid={Boolean(form.formState.errors[field.name])}
+              aria-describedby={
+                form.formState.errors[field.name]
+                  ? `${formId}-${field.name}-error`
+                  : undefined
+              }
               {...form.register(field.name)}
             />
           )}
           {form.formState.errors[field.name] && (
-            <p className="text-sm text-destructive">
+            <p
+              id={`${formId}-${field.name}-error`}
+              className="text-sm text-destructive"
+            >
               {form.formState.errors[field.name]?.message}
             </p>
           )}
@@ -303,10 +320,10 @@ export function ActionForm({
             <DialogHeader>
               <DialogTitle>Xác nhận {submitLabel.toLowerCase()}?</DialogTitle>
             </DialogHeader>
-            <p>
+            <DialogDescription>
               Thao tác sẽ cập nhật dữ liệu đang lưu. Kiểm tra thông tin trước
               khi xác nhận.
-            </p>
+            </DialogDescription>
             <Button
               type="button"
               disabled={mutation.isPending}

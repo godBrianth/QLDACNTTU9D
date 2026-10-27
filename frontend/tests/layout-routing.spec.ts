@@ -38,6 +38,10 @@ test("sidebar mobile mở, đóng và giao diện đổi theme", async ({ page }
   await page.route("**/api/v1/users/me", async (route) => {
     await route.fulfill({ contentType: "application/json", json: currentUser })
   })
+  // The dashboard now loads customer activity; keep the fake session isolated from the real API.
+  await page.route("**/api/v1/appointments/me**", (route) =>
+    route.fulfill({ json: { data: [], count: 0 } }),
+  )
   await page.goto("/login")
   await page.evaluate(() => localStorage.setItem("access_token", "test-token"))
   await page.goto("/app")

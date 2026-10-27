@@ -5,6 +5,12 @@ import { useState } from "react"
 import { AppointmentsService, SlotsService } from "@/client"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { getApiErrorMessage } from "@/utils"
@@ -21,6 +27,8 @@ function AppointmentDetail() {
   const [reason, setReason] = useState("")
   const [date, setDate] = useState("")
   const [time, setTime] = useState("")
+  const [notice, setNotice] = useState("")
+  const [cancelOpen, setCancelOpen] = useState(false)
   const detail = useQuery({
     queryKey: ["appointment", appointmentId],
     queryFn: async () =>
@@ -50,6 +58,8 @@ function AppointmentDetail() {
         body: { reason },
       }),
     onSuccess: () => {
+      setNotice("Đã hủy lịch thành công")
+      setCancelOpen(false)
       invalidate()
       detail.refetch()
     },
@@ -65,6 +75,7 @@ function AppointmentDetail() {
         },
       }),
     onSuccess: () => {
+      setNotice("Đã đổi lịch thành công")
       invalidate()
       detail.refetch()
     },
@@ -157,18 +168,40 @@ function AppointmentDetail() {
             </div>
             <div className="flex flex-wrap gap-3">
               <Button
-                disabled={!date || !time || reschedule.isPending}
+                disabled={
+                  !date || !time || reschedule.isPending || cancel.isPending
+                }
                 onClick={() => reschedule.mutate()}
               >
                 Đổi lịch
               </Button>
               <Button
                 variant="destructive"
-                disabled={!reason || cancel.isPending}
-                onClick={() => cancel.mutate()}
+                disabled={
+                  !reason.trim() || cancel.isPending || reschedule.isPending
+                }
+                onClick={() => setCancelOpen(true)}
               >
                 Hủy lịch
               </Button>
+              <Dialog open={cancelOpen} onOpenChange={setCancelOpen}>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Xác nhận hủy lịch?</DialogTitle>
+                  </DialogHeader>
+                  <p>
+                    Bạn muốn hủy lịch {detail.data.appointment_number}? Lý do:{" "}
+                    {reason}
+                  </p>
+                  <Button
+                    variant="destructive"
+                    disabled={cancel.isPending}
+                    onClick={() => cancel.mutate()}
+                  >
+                    Xác nhận hủy
+                  </Button>
+                </DialogContent>
+              </Dialog>
             </div>
             {error && (
               <p role="alert" className="text-sm text-destructive">
@@ -177,6 +210,11 @@ function AppointmentDetail() {
             )}
           </CardContent>
         </Card>
+      )}
+      {notice && (
+        <p role="status" className="rounded-lg bg-primary/10 p-4">
+          {notice}
+        </p>
       )}
     </section>
   )
