@@ -1,4 +1,4 @@
-import { CalendarDays, Home, Users } from "lucide-react"
+import { CalendarDays, ClipboardList, Home, Users, Wrench } from "lucide-react"
 
 import { SidebarAppearance } from "@/components/Common/Appearance"
 import { Logo } from "@/components/Common/Logo"
@@ -21,12 +21,30 @@ const baseItems: Item[] = [
 export function AppSidebar() {
   const { user: currentUser } = useAuth()
 
-  const items = currentUser?.is_superuser
-    ? [
-        ...baseItems,
-        { icon: Users, title: "Quản trị tài khoản", path: "/admin" },
-      ]
-    : baseItems
+  const isStaff =
+    currentUser?.is_superuser ||
+    ["admin", "manager", "staff", "technician"].includes(
+      currentUser?.role ?? "",
+    )
+  const items: Item[] = [...baseItems]
+  if (isStaff)
+    items.push(
+      { icon: Home, title: "Trung tâm tiếp nhận", path: "/workspace" },
+      {
+        icon: CalendarDays,
+        title: "Quản lý lịch hẹn",
+        path: "/workspace/appointments",
+      },
+      { icon: ClipboardList, title: "Hàng chờ", path: "/workspace/queue" },
+      { icon: Users, title: "Khách hàng", path: "/workspace/customers" },
+      {
+        icon: Wrench,
+        title: "Kỹ thuật viên & ca làm",
+        path: "/workspace/technicians",
+      },
+    )
+  if (currentUser?.is_superuser)
+    items.push({ icon: Users, title: "Quản trị tài khoản", path: "/admin" })
 
   return (
     <Sidebar collapsible="icon">

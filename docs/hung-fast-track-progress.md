@@ -11,6 +11,9 @@
 
 ## API đã tích hợp thật
 
+- Nhóm B commit: `db24bc8`. Cache `.tanstack` không stage; whitespace được xử lý bởi generator postProcess.
+- Nhóm C (mã đã tích hợp, kiểm thử tổng thể NOT RUN): `/workspace`, `/workspace/appointments`, `/workspace/queue`, `/workspace/customers`, `/workspace/technicians`. Generated API: lịch sử/chi tiết/xác nhận/hủy/phân công lịch; tiếp nhận; customers CRUD thêm/sửa; technicians thêm/trạng thái; lịch làm việc thêm/trạng thái. UID 802/804/803/805/793/806/807/812/816/817/819/2008: PARTIAL chờ kiểm thử.
+
 - Authentication: login, register, current user, refresh token, revoke refresh token.
 - User profile: read/update current user và đổi mật khẩu.
 - HTTP client: Bearer access token, refresh một lần khi nhận 401, không tự logout cho 403/404/422/500.

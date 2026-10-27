@@ -4,7 +4,9 @@ export default defineConfig({
   input: "./openapi.json",
   output: {
     path: "./src/client",
-    postProcess: [{ command: "bun", args: ["scripts/normalize-generated.ts", "{{path}}"] }],
+    postProcess: [
+      { command: "bun", args: ["scripts/normalize-generated.ts", "{{path}}"] },
+    ],
   },
 
   plugins: [
