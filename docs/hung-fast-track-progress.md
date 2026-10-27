@@ -55,7 +55,7 @@ Bản build cuối sau hotfix cache được chạy lại trước commit; kết
 | C | `5f33005` | Reception workspace, lịch/hàng chờ/khách/nhân sự/ca làm. |
 | D | `3c8fabc` | Repair/quote workflow và quyền owner/assigned. |
 | E | `b091d37` | Invoice/payment/review/notifications/reporting và service/account management. |
-| QA cuối/hardening | Xem commit chứa bản cập nhật tài liệu này | Scope queue/slot, technician choices/accounts, UX/semantic headings, cache logout và regression coverage. |
+| QA cuối/hardening | `eb50e81` | Scope queue/slot, technician choices/accounts, UX/semantic headings, cache logout và regression coverage. |
 
 Không push. Không stage cache .tanstack, auth state, .env hoặc báo cáo chứa token. Cache .tanstack đã tracked từ commit cũ vẫn có thể làm working tree không sạch; không đưa vào commit mới.
 
