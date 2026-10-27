@@ -58,6 +58,9 @@ def update_repair_status(
             )
 
         old_status = (appointment.status or "").upper()
+        from app.services.access_service import check_appointment_access
+
+        check_appointment_access(session, current_user, appointment)
         new_status = data.status.value.upper()
 
         # Không cho phép cập nhật phiếu đã kết thúc
@@ -185,6 +188,10 @@ def assign_technician_to_repair(
                 detail=f"Không tìm thấy phiếu sửa chữa với ID: {repair_order_id}",
             )
 
+        from app.services.access_service import is_reception
+
+        if not is_reception(current_user):
+            raise HTTPException(status_code=403, detail="Chỉ nhân viên tiếp nhận hoặc quản lý được phân công")
         if appointment.status in ("COMPLETED", "CANCELLED"):
             raise HTTPException(
                 status_code=status.HTTP_409_CONFLICT,

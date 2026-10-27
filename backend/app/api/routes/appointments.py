@@ -142,9 +142,9 @@ def create_appointment(
 )
 def update_appointment(
     session: SessionDep,
+    current_user: CurrentUser,
     appointment_id: Annotated[uuid.UUID, Path(description="Mã ID của lịch hẹn")],
     body: AppointmentBookingUpdate,
-    current_user: CurrentUserOptional = None,
 ) -> AppointmentBookingResponse:
     """API 2: Cập nhật thông tin đặt chỗ (đổi ngày giờ, kỹ thuật viên, liên hệ hoặc ghi chú)."""
     return slot_service.update_booking_appointment(

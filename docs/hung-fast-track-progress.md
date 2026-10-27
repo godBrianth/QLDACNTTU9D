@@ -21,6 +21,9 @@
 
 ## Kiểm thử gần nhất
 
+- Nhóm C commit `5f33005`: typecheck/build PASS; kiểm thử nghiệp vụ tổng thể NOT RUN.
+- Nhóm D: đã có trang `/workspace/repairs`, `/workspace/intake`, `/quotes`; thêm API list/detail repair, list/detail/reject quote theo owner/assignment, bắt buộc token khi đổi lịch. UID 795/796/797/806/807/808/809/810/811/813/820/2009: PARTIAL chờ kiểm thử; UI có code, chưa coi là nghiệm thu.
+
 - Nhóm B: auth setup 1/1 PASS; booking smoke 2/2 PASS; appointments smoke 1/1 PASS; TypeScript, Biome và production build PASS.
 - Quy trình generator: tự chuẩn hóa whitespace cuối dòng trong `src/client` bằng postProcess; không sửa nội dung nghiệp vụ generated. Các kết quả Nhóm B ở trên là bằng chứng lượt trước, không chạy lại toàn bộ suite khi chỉ sửa whitespace.
 

@@ -1648,6 +1648,11 @@ class QuotationAcceptRequest(SQLModel):
     )
 
 
+class QuotationsPublic(SQLModel):
+    data: list[QuotationDetail]
+    count: int
+
+
 # ============================================================================
 # FIXPHONE DEVICE & REPAIR ORDER MANAGEMENT SCHEMAS
 # ============================================================================

@@ -229,6 +229,12 @@ def get_appointment_detail(
             detail="Không tìm thấy lịch hẹn",
         )
 
+    from app.services.access_service import check_appointment_access
+
+    if current_user is None:
+        raise HTTPException(status_code=401, detail="Cần đăng nhập")
+    check_appointment_access(session, current_user, appointment)
+
     # Phân quyền: customer chỉ được xem lịch hẹn của mình
     if current_user and not current_user.is_superuser:
         role = (current_user.role or "").lower()

@@ -1456,6 +1456,20 @@ export type QuotationResponse = {
 };
 
 /**
+ * QuotationsPublic
+ */
+export type QuotationsPublic = {
+    /**
+     * Data
+     */
+    data: Array<QuotationDetail>;
+    /**
+     * Count
+     */
+    count: number;
+};
+
+/**
  * QuoteStatus
  */
 export type QuoteStatus = 'DRAFT' | 'SENT' | 'ACCEPTED' | 'REJECTED';
@@ -4132,6 +4146,44 @@ export type intakeCreateDeviceIntakeResponses = {
 
 export type intakeCreateDeviceIntakeResponse = intakeCreateDeviceIntakeResponses[keyof intakeCreateDeviceIntakeResponses];
 
+export type quotesReadQuotationsData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Skip
+         */
+        skip?: number;
+        /**
+         * Limit
+         */
+        limit?: number;
+        /**
+         * Appointment Id
+         */
+        appointment_id?: string | null;
+    };
+    url: '/api/v1/quotes';
+};
+
+export type quotesReadQuotationsErrors = {
+    /**
+     * Validation Error
+     */
+    422: HTTPValidationError;
+};
+
+export type quotesReadQuotationsError = quotesReadQuotationsErrors[keyof quotesReadQuotationsErrors];
+
+export type quotesReadQuotationsResponses = {
+    /**
+     * Successful Response
+     */
+    200: QuotationsPublic;
+};
+
+export type quotesReadQuotationsResponse = quotesReadQuotationsResponses[keyof quotesReadQuotationsResponses];
+
 export type quotesCreateQuotationData = {
     body: QuotationCreate;
     path?: never;
@@ -4156,6 +4208,66 @@ export type quotesCreateQuotationResponses = {
 };
 
 export type quotesCreateQuotationResponse = quotesCreateQuotationResponses[keyof quotesCreateQuotationResponses];
+
+export type quotesReadQuotationData = {
+    body?: never;
+    path: {
+        /**
+         * Quote Id
+         */
+        quote_id: string;
+    };
+    query?: never;
+    url: '/api/v1/quotes/{quote_id}';
+};
+
+export type quotesReadQuotationErrors = {
+    /**
+     * Validation Error
+     */
+    422: HTTPValidationError;
+};
+
+export type quotesReadQuotationError = quotesReadQuotationErrors[keyof quotesReadQuotationErrors];
+
+export type quotesReadQuotationResponses = {
+    /**
+     * Successful Response
+     */
+    200: QuotationResponse;
+};
+
+export type quotesReadQuotationResponse = quotesReadQuotationResponses[keyof quotesReadQuotationResponses];
+
+export type quotesRejectQuotationData = {
+    body: QuotationAcceptRequest;
+    path: {
+        /**
+         * Quote Id
+         */
+        quote_id: string;
+    };
+    query?: never;
+    url: '/api/v1/quotes/{quote_id}/reject';
+};
+
+export type quotesRejectQuotationErrors = {
+    /**
+     * Validation Error
+     */
+    422: HTTPValidationError;
+};
+
+export type quotesRejectQuotationError = quotesRejectQuotationErrors[keyof quotesRejectQuotationErrors];
+
+export type quotesRejectQuotationResponses = {
+    /**
+     * Successful Response
+     */
+    200: QuotationResponse;
+};
+
+export type quotesRejectQuotationResponse = quotesRejectQuotationResponses[keyof quotesRejectQuotationResponses];
 
 export type quotesAcceptQuotationData = {
     /**
@@ -4258,6 +4370,74 @@ export type devicesUpdateDeviceResponses = {
 };
 
 export type devicesUpdateDeviceResponse = devicesUpdateDeviceResponses[keyof devicesUpdateDeviceResponses];
+
+export type repairOrdersReadRepairOrdersData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Skip
+         */
+        skip?: number;
+        /**
+         * Limit
+         */
+        limit?: number;
+        /**
+         * Status Filter
+         */
+        status_filter?: string | null;
+    };
+    url: '/api/v1/repair-orders';
+};
+
+export type repairOrdersReadRepairOrdersErrors = {
+    /**
+     * Validation Error
+     */
+    422: HTTPValidationError;
+};
+
+export type repairOrdersReadRepairOrdersError = repairOrdersReadRepairOrdersErrors[keyof repairOrdersReadRepairOrdersErrors];
+
+export type repairOrdersReadRepairOrdersResponses = {
+    /**
+     * Successful Response
+     */
+    200: AppointmentsHistoryPublic;
+};
+
+export type repairOrdersReadRepairOrdersResponse = repairOrdersReadRepairOrdersResponses[keyof repairOrdersReadRepairOrdersResponses];
+
+export type repairOrdersReadRepairOrderData = {
+    body?: never;
+    path: {
+        /**
+         * Repair Order Id
+         */
+        repair_order_id: string;
+    };
+    query?: never;
+    url: '/api/v1/repair-orders/{repair_order_id}';
+};
+
+export type repairOrdersReadRepairOrderErrors = {
+    /**
+     * Validation Error
+     */
+    422: HTTPValidationError;
+};
+
+export type repairOrdersReadRepairOrderError = repairOrdersReadRepairOrderErrors[keyof repairOrdersReadRepairOrderErrors];
+
+export type repairOrdersReadRepairOrderResponses = {
+    /**
+     * Successful Response
+     */
+    200: AppointmentHistoryDetail;
+};
+
+export type repairOrdersReadRepairOrderResponse = repairOrdersReadRepairOrderResponses[keyof repairOrdersReadRepairOrderResponses];
 
 export type repairOrdersUpdateRepairStatusData = {
     body: RepairStatusUpdateRequest;

@@ -2,7 +2,7 @@
 
 import { type Client, type Options as Options2, type TDataShape, urlSearchParamsBodySerializer } from './client';
 import { client } from './client.gen';
-import type { appointmentsAssignTechnicianToAppointmentData, appointmentsAssignTechnicianToAppointmentErrors, appointmentsAssignTechnicianToAppointmentResponses, appointmentsCancelAppointmentData, appointmentsCancelAppointmentErrors, appointmentsCancelAppointmentResponses, appointmentsConfirmAppointmentData, appointmentsConfirmAppointmentErrors, appointmentsConfirmAppointmentResponses, appointmentsCreateAppointmentData, appointmentsCreateAppointmentErrors, appointmentsCreateAppointmentResponses, appointmentsLookupAppointmentData, appointmentsLookupAppointmentErrors, appointmentsLookupAppointmentResponses, appointmentsReadAppointmentDetailData, appointmentsReadAppointmentDetailErrors, appointmentsReadAppointmentDetailResponses, appointmentsReadAppointmentsHistoryData, appointmentsReadAppointmentsHistoryErrors, appointmentsReadAppointmentsHistoryResponses, appointmentsReadMyAppointmentsData, appointmentsReadMyAppointmentsErrors, appointmentsReadMyAppointmentsResponses, appointmentsUpdateAppointmentData, appointmentsUpdateAppointmentErrors, appointmentsUpdateAppointmentResponses, bookingsAssignTechnicianToAppointmentData, bookingsAssignTechnicianToAppointmentErrors, bookingsAssignTechnicianToAppointmentResponses, bookingsCancelAppointmentData, bookingsCancelAppointmentErrors, bookingsCancelAppointmentResponses, bookingsConfirmAppointmentData, bookingsConfirmAppointmentErrors, bookingsConfirmAppointmentResponses, bookingsCreateAppointmentData, bookingsCreateAppointmentErrors, bookingsCreateAppointmentResponses, bookingsUpdateAppointmentData, bookingsUpdateAppointmentErrors, bookingsUpdateAppointmentResponses, customersCreateCustomerData, customersCreateCustomerErrors, customersCreateCustomerResponses, customersDeleteCustomerData, customersDeleteCustomerErrors, customersDeleteCustomerResponses, customersReadCustomerAppointmentsData, customersReadCustomerAppointmentsErrors, customersReadCustomerAppointmentsResponses, customersReadCustomerByIdData, customersReadCustomerByIdErrors, customersReadCustomerByIdResponses, customersReadCustomersData, customersReadCustomersErrors, customersReadCustomersResponses, customersUpdateCustomerData, customersUpdateCustomerErrors, customersUpdateCustomerResponses, devicesUpdateDeviceData, devicesUpdateDeviceErrors, devicesUpdateDeviceResponses, intakeCreateDeviceIntakeData, intakeCreateDeviceIntakeErrors, intakeCreateDeviceIntakeResponses, itemsCreateItemData, itemsCreateItemErrors, itemsCreateItemResponses, itemsDeleteItemData, itemsDeleteItemErrors, itemsDeleteItemResponses, itemsReadItemData, itemsReadItemErrors, itemsReadItemResponses, itemsReadItemsData, itemsReadItemsErrors, itemsReadItemsResponses, itemsUpdateItemData, itemsUpdateItemErrors, itemsUpdateItemResponses, loginLoginAccessTokenData, loginLoginAccessTokenErrors, loginLoginAccessTokenResponses, loginRecoverPasswordData, loginRecoverPasswordErrors, loginRecoverPasswordHtmlContentData, loginRecoverPasswordHtmlContentErrors, loginRecoverPasswordHtmlContentResponses, loginRecoverPasswordResponses, loginRefreshAccessTokenData, loginRefreshAccessTokenErrors, loginRefreshAccessTokenResponses, loginRegisterUserData, loginRegisterUserErrors, loginRegisterUserResponses, loginResetPasswordData, loginResetPasswordErrors, loginResetPasswordResponses, loginRevokeRefreshTokenData, loginRevokeRefreshTokenErrors, loginRevokeRefreshTokenResponses, loginTestTokenData, loginTestTokenResponses, privateCreateUserData, privateCreateUserErrors, privateCreateUserResponses, queueAddAppointmentToQueueData, queueAddAppointmentToQueueErrors, queueAddAppointmentToQueueResponses, queueReadQueueData, queueReadQueueErrors, queueReadQueueItemData, queueReadQueueItemErrors, queueReadQueueItemResponses, queueReadQueueResponses, queueUpdateQueueStatusData, queueUpdateQueueStatusErrors, queueUpdateQueueStatusResponses, quotesAcceptQuotationData, quotesAcceptQuotationErrors, quotesAcceptQuotationResponses, quotesApproveQuotationAliasData, quotesApproveQuotationAliasErrors, quotesApproveQuotationAliasResponses, quotesCreateQuotationData, quotesCreateQuotationErrors, quotesCreateQuotationResponses, repairOrdersAssignTechnicianData, repairOrdersAssignTechnicianErrors, repairOrdersAssignTechnicianResponses, repairOrdersUpdateRepairStatusData, repairOrdersUpdateRepairStatusErrors, repairOrdersUpdateRepairStatusResponses, servicesReadPublicServicesData, servicesReadPublicServicesErrors, servicesReadPublicServicesResponses, slotsCheckSlotData, slotsCheckSlotErrors, slotsCheckSlotResponses, slotsGetAvailableSlotsData, slotsGetAvailableSlotsErrors, slotsGetAvailableSlotsResponses, techniciansCreateTechnicianData, techniciansCreateTechnicianErrors, techniciansCreateTechnicianResponses, techniciansDeleteTechnicianData, techniciansDeleteTechnicianErrors, techniciansDeleteTechnicianResponses, techniciansReadTechnicianByIdData, techniciansReadTechnicianByIdErrors, techniciansReadTechnicianByIdResponses, techniciansReadTechniciansData, techniciansReadTechniciansErrors, techniciansReadTechniciansResponses, techniciansUpdateTechnicianData, techniciansUpdateTechnicianErrors, techniciansUpdateTechnicianResponses, techniciansUpdateTechnicianStatusData, techniciansUpdateTechnicianStatusErrors, techniciansUpdateTechnicianStatusResponses, usersCreateUserData, usersCreateUserErrors, usersCreateUserResponses, usersDeleteUserData, usersDeleteUserErrors, usersDeleteUserMeData, usersDeleteUserMeResponses, usersDeleteUserResponses, usersReadUserByIdData, usersReadUserByIdErrors, usersReadUserByIdResponses, usersReadUserMeData, usersReadUserMeResponses, usersReadUsersData, usersReadUsersErrors, usersReadUsersResponses, usersRegisterUserData, usersRegisterUserErrors, usersRegisterUserResponses, usersUpdatePasswordMeData, usersUpdatePasswordMeErrors, usersUpdatePasswordMeResponses, usersUpdateUserData, usersUpdateUserErrors, usersUpdateUserMeData, usersUpdateUserMeErrors, usersUpdateUserMeResponses, usersUpdateUserResponses, utilsHealthCheckData, utilsHealthCheckResponses, utilsTestEmailData, utilsTestEmailErrors, utilsTestEmailResponses, workSchedulesCreateWorkScheduleData, workSchedulesCreateWorkScheduleErrors, workSchedulesCreateWorkScheduleResponses, workSchedulesDeleteWorkScheduleData, workSchedulesDeleteWorkScheduleErrors, workSchedulesDeleteWorkScheduleResponses, workSchedulesReadWorkScheduleByIdData, workSchedulesReadWorkScheduleByIdErrors, workSchedulesReadWorkScheduleByIdResponses, workSchedulesReadWorkSchedulesData, workSchedulesReadWorkSchedulesErrors, workSchedulesReadWorkSchedulesResponses, workSchedulesUpdateWorkScheduleData, workSchedulesUpdateWorkScheduleErrors, workSchedulesUpdateWorkScheduleResponses, workSchedulesUpdateWorkScheduleStatusData, workSchedulesUpdateWorkScheduleStatusErrors, workSchedulesUpdateWorkScheduleStatusResponses } from './types.gen';
+import type { appointmentsAssignTechnicianToAppointmentData, appointmentsAssignTechnicianToAppointmentErrors, appointmentsAssignTechnicianToAppointmentResponses, appointmentsCancelAppointmentData, appointmentsCancelAppointmentErrors, appointmentsCancelAppointmentResponses, appointmentsConfirmAppointmentData, appointmentsConfirmAppointmentErrors, appointmentsConfirmAppointmentResponses, appointmentsCreateAppointmentData, appointmentsCreateAppointmentErrors, appointmentsCreateAppointmentResponses, appointmentsLookupAppointmentData, appointmentsLookupAppointmentErrors, appointmentsLookupAppointmentResponses, appointmentsReadAppointmentDetailData, appointmentsReadAppointmentDetailErrors, appointmentsReadAppointmentDetailResponses, appointmentsReadAppointmentsHistoryData, appointmentsReadAppointmentsHistoryErrors, appointmentsReadAppointmentsHistoryResponses, appointmentsReadMyAppointmentsData, appointmentsReadMyAppointmentsErrors, appointmentsReadMyAppointmentsResponses, appointmentsUpdateAppointmentData, appointmentsUpdateAppointmentErrors, appointmentsUpdateAppointmentResponses, bookingsAssignTechnicianToAppointmentData, bookingsAssignTechnicianToAppointmentErrors, bookingsAssignTechnicianToAppointmentResponses, bookingsCancelAppointmentData, bookingsCancelAppointmentErrors, bookingsCancelAppointmentResponses, bookingsConfirmAppointmentData, bookingsConfirmAppointmentErrors, bookingsConfirmAppointmentResponses, bookingsCreateAppointmentData, bookingsCreateAppointmentErrors, bookingsCreateAppointmentResponses, bookingsUpdateAppointmentData, bookingsUpdateAppointmentErrors, bookingsUpdateAppointmentResponses, customersCreateCustomerData, customersCreateCustomerErrors, customersCreateCustomerResponses, customersDeleteCustomerData, customersDeleteCustomerErrors, customersDeleteCustomerResponses, customersReadCustomerAppointmentsData, customersReadCustomerAppointmentsErrors, customersReadCustomerAppointmentsResponses, customersReadCustomerByIdData, customersReadCustomerByIdErrors, customersReadCustomerByIdResponses, customersReadCustomersData, customersReadCustomersErrors, customersReadCustomersResponses, customersUpdateCustomerData, customersUpdateCustomerErrors, customersUpdateCustomerResponses, devicesUpdateDeviceData, devicesUpdateDeviceErrors, devicesUpdateDeviceResponses, intakeCreateDeviceIntakeData, intakeCreateDeviceIntakeErrors, intakeCreateDeviceIntakeResponses, itemsCreateItemData, itemsCreateItemErrors, itemsCreateItemResponses, itemsDeleteItemData, itemsDeleteItemErrors, itemsDeleteItemResponses, itemsReadItemData, itemsReadItemErrors, itemsReadItemResponses, itemsReadItemsData, itemsReadItemsErrors, itemsReadItemsResponses, itemsUpdateItemData, itemsUpdateItemErrors, itemsUpdateItemResponses, loginLoginAccessTokenData, loginLoginAccessTokenErrors, loginLoginAccessTokenResponses, loginRecoverPasswordData, loginRecoverPasswordErrors, loginRecoverPasswordHtmlContentData, loginRecoverPasswordHtmlContentErrors, loginRecoverPasswordHtmlContentResponses, loginRecoverPasswordResponses, loginRefreshAccessTokenData, loginRefreshAccessTokenErrors, loginRefreshAccessTokenResponses, loginRegisterUserData, loginRegisterUserErrors, loginRegisterUserResponses, loginResetPasswordData, loginResetPasswordErrors, loginResetPasswordResponses, loginRevokeRefreshTokenData, loginRevokeRefreshTokenErrors, loginRevokeRefreshTokenResponses, loginTestTokenData, loginTestTokenResponses, privateCreateUserData, privateCreateUserErrors, privateCreateUserResponses, queueAddAppointmentToQueueData, queueAddAppointmentToQueueErrors, queueAddAppointmentToQueueResponses, queueReadQueueData, queueReadQueueErrors, queueReadQueueItemData, queueReadQueueItemErrors, queueReadQueueItemResponses, queueReadQueueResponses, queueUpdateQueueStatusData, queueUpdateQueueStatusErrors, queueUpdateQueueStatusResponses, quotesAcceptQuotationData, quotesAcceptQuotationErrors, quotesAcceptQuotationResponses, quotesApproveQuotationAliasData, quotesApproveQuotationAliasErrors, quotesApproveQuotationAliasResponses, quotesCreateQuotationData, quotesCreateQuotationErrors, quotesCreateQuotationResponses, quotesReadQuotationData, quotesReadQuotationErrors, quotesReadQuotationResponses, quotesReadQuotationsData, quotesReadQuotationsErrors, quotesReadQuotationsResponses, quotesRejectQuotationData, quotesRejectQuotationErrors, quotesRejectQuotationResponses, repairOrdersAssignTechnicianData, repairOrdersAssignTechnicianErrors, repairOrdersAssignTechnicianResponses, repairOrdersReadRepairOrderData, repairOrdersReadRepairOrderErrors, repairOrdersReadRepairOrderResponses, repairOrdersReadRepairOrdersData, repairOrdersReadRepairOrdersErrors, repairOrdersReadRepairOrdersResponses, repairOrdersUpdateRepairStatusData, repairOrdersUpdateRepairStatusErrors, repairOrdersUpdateRepairStatusResponses, servicesReadPublicServicesData, servicesReadPublicServicesErrors, servicesReadPublicServicesResponses, slotsCheckSlotData, slotsCheckSlotErrors, slotsCheckSlotResponses, slotsGetAvailableSlotsData, slotsGetAvailableSlotsErrors, slotsGetAvailableSlotsResponses, techniciansCreateTechnicianData, techniciansCreateTechnicianErrors, techniciansCreateTechnicianResponses, techniciansDeleteTechnicianData, techniciansDeleteTechnicianErrors, techniciansDeleteTechnicianResponses, techniciansReadTechnicianByIdData, techniciansReadTechnicianByIdErrors, techniciansReadTechnicianByIdResponses, techniciansReadTechniciansData, techniciansReadTechniciansErrors, techniciansReadTechniciansResponses, techniciansUpdateTechnicianData, techniciansUpdateTechnicianErrors, techniciansUpdateTechnicianResponses, techniciansUpdateTechnicianStatusData, techniciansUpdateTechnicianStatusErrors, techniciansUpdateTechnicianStatusResponses, usersCreateUserData, usersCreateUserErrors, usersCreateUserResponses, usersDeleteUserData, usersDeleteUserErrors, usersDeleteUserMeData, usersDeleteUserMeResponses, usersDeleteUserResponses, usersReadUserByIdData, usersReadUserByIdErrors, usersReadUserByIdResponses, usersReadUserMeData, usersReadUserMeResponses, usersReadUsersData, usersReadUsersErrors, usersReadUsersResponses, usersRegisterUserData, usersRegisterUserErrors, usersRegisterUserResponses, usersUpdatePasswordMeData, usersUpdatePasswordMeErrors, usersUpdatePasswordMeResponses, usersUpdateUserData, usersUpdateUserErrors, usersUpdateUserMeData, usersUpdateUserMeErrors, usersUpdateUserMeResponses, usersUpdateUserResponses, utilsHealthCheckData, utilsHealthCheckResponses, utilsTestEmailData, utilsTestEmailErrors, utilsTestEmailResponses, workSchedulesCreateWorkScheduleData, workSchedulesCreateWorkScheduleErrors, workSchedulesCreateWorkScheduleResponses, workSchedulesDeleteWorkScheduleData, workSchedulesDeleteWorkScheduleErrors, workSchedulesDeleteWorkScheduleResponses, workSchedulesReadWorkScheduleByIdData, workSchedulesReadWorkScheduleByIdErrors, workSchedulesReadWorkScheduleByIdResponses, workSchedulesReadWorkSchedulesData, workSchedulesReadWorkSchedulesErrors, workSchedulesReadWorkSchedulesResponses, workSchedulesUpdateWorkScheduleData, workSchedulesUpdateWorkScheduleErrors, workSchedulesUpdateWorkScheduleResponses, workSchedulesUpdateWorkScheduleStatusData, workSchedulesUpdateWorkScheduleStatusErrors, workSchedulesUpdateWorkScheduleStatusResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -1076,6 +1076,18 @@ export class IntakeService {
 
 export class QuotesService {
     /**
+     * Read Quotations
+     */
+    public static readQuotations<ThrowOnError extends boolean = true>(options?: Options<quotesReadQuotationsData, ThrowOnError>) {
+        return (options?.client ?? client).get<quotesReadQuotationsResponses, quotesReadQuotationsErrors, ThrowOnError>({
+            responseType: 'json',
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/api/v1/quotes',
+            ...options
+        });
+    }
+
+    /**
      * Tạo báo giá sửa chữa mới
      *
      * API tạo báo giá sửa chữa cho một phiếu sửa chữa (Appointment):
@@ -1093,6 +1105,34 @@ export class QuotesService {
             responseType: 'json',
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/api/v1/quotes',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+            }
+        });
+    }
+
+    /**
+     * Read Quotation
+     */
+    public static readQuotation<ThrowOnError extends boolean = true>(options: Options<quotesReadQuotationData, ThrowOnError>) {
+        return (options.client ?? client).get<quotesReadQuotationResponses, quotesReadQuotationErrors, ThrowOnError>({
+            responseType: 'json',
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/api/v1/quotes/{quote_id}',
+            ...options
+        });
+    }
+
+    /**
+     * Reject Quotation
+     */
+    public static rejectQuotation<ThrowOnError extends boolean = true>(options: Options<quotesRejectQuotationData, ThrowOnError>) {
+        return (options.client ?? client).post<quotesRejectQuotationResponses, quotesRejectQuotationErrors, ThrowOnError>({
+            responseType: 'json',
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/api/v1/quotes/{quote_id}/reject',
             ...options,
             headers: {
                 'Content-Type': 'application/json',
@@ -1173,6 +1213,30 @@ export class DevicesService {
 }
 
 export class RepairOrdersService {
+    /**
+     * Read Repair Orders
+     */
+    public static ordersReadRepairOrders<ThrowOnError extends boolean = true>(options?: Options<repairOrdersReadRepairOrdersData, ThrowOnError>) {
+        return (options?.client ?? client).get<repairOrdersReadRepairOrdersResponses, repairOrdersReadRepairOrdersErrors, ThrowOnError>({
+            responseType: 'json',
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/api/v1/repair-orders',
+            ...options
+        });
+    }
+
+    /**
+     * Read Repair Order
+     */
+    public static ordersReadRepairOrder<ThrowOnError extends boolean = true>(options: Options<repairOrdersReadRepairOrderData, ThrowOnError>) {
+        return (options.client ?? client).get<repairOrdersReadRepairOrderResponses, repairOrdersReadRepairOrderErrors, ThrowOnError>({
+            responseType: 'json',
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/api/v1/repair-orders/{repair_order_id}',
+            ...options
+        });
+    }
+
     /**
      * Cập nhật trạng thái xử lý của phiếu sửa chữa
      *

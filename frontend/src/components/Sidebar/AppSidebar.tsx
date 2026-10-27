@@ -16,6 +16,7 @@ import { User } from "./User"
 const baseItems: Item[] = [
   { icon: Home, title: "Tổng quan", path: "/app" },
   { icon: CalendarDays, title: "Lịch hẹn của tôi", path: "/appointments" },
+  { icon: ClipboardList, title: "Báo giá", path: "/quotes" },
 ]
 
 export function AppSidebar() {
@@ -36,6 +37,16 @@ export function AppSidebar() {
         path: "/workspace/appointments",
       },
       { icon: ClipboardList, title: "Hàng chờ", path: "/workspace/queue" },
+      {
+        icon: ClipboardList,
+        title: "Tiếp nhận thiết bị",
+        path: "/workspace/intake",
+      },
+      {
+        icon: Wrench,
+        title: "Phiếu sửa & công việc",
+        path: "/workspace/repairs",
+      },
       { icon: Users, title: "Khách hàng", path: "/workspace/customers" },
       {
         icon: Wrench,

@@ -20,6 +20,7 @@ import { Route as LayoutAdminRouteImport } from './routes/_layout/admin'
 import { Route as LayoutAppRouteImport } from './routes/_layout/app'
 import { Route as LayoutAppointmentsRouteImport } from './routes/_layout/appointments'
 import { Route as LayoutItemsRouteImport } from './routes/_layout/items'
+import { Route as LayoutQuotesRouteImport } from './routes/_layout/quotes'
 import { Route as LayoutSettingsRouteImport } from './routes/_layout/settings'
 import { Route as LayoutWorkspaceRouteImport } from './routes/_layout/workspace'
 import { Route as LayoutAppointmentsIndexRouteImport } from './routes/_layout/appointments/index'
@@ -27,7 +28,9 @@ import { Route as LayoutAppointmentsAppointmentIdRouteImport } from './routes/_l
 import { Route as LayoutWorkspaceIndexRouteImport } from './routes/_layout/workspace/index'
 import { Route as LayoutWorkspaceAppointmentsRouteImport } from './routes/_layout/workspace/appointments'
 import { Route as LayoutWorkspaceCustomersRouteImport } from './routes/_layout/workspace/customers'
+import { Route as LayoutWorkspaceIntakeRouteImport } from './routes/_layout/workspace/intake'
 import { Route as LayoutWorkspaceQueueRouteImport } from './routes/_layout/workspace/queue'
+import { Route as LayoutWorkspaceRepairsRouteImport } from './routes/_layout/workspace/repairs'
 import { Route as LayoutWorkspaceTechniciansRouteImport } from './routes/_layout/workspace/technicians'
 
 const IndexRoute = IndexRouteImport.update({
@@ -84,6 +87,11 @@ const LayoutItemsRoute = LayoutItemsRouteImport.update({
   path: '/items',
   getParentRoute: () => LayoutRoute,
 } as any)
+const LayoutQuotesRoute = LayoutQuotesRouteImport.update({
+  id: '/quotes',
+  path: '/quotes',
+  getParentRoute: () => LayoutRoute,
+} as any)
 const LayoutSettingsRoute = LayoutSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
@@ -122,9 +130,19 @@ const LayoutWorkspaceCustomersRoute =
     path: '/customers',
     getParentRoute: () => LayoutWorkspaceRoute,
   } as any)
+const LayoutWorkspaceIntakeRoute = LayoutWorkspaceIntakeRouteImport.update({
+  id: '/intake',
+  path: '/intake',
+  getParentRoute: () => LayoutWorkspaceRoute,
+} as any)
 const LayoutWorkspaceQueueRoute = LayoutWorkspaceQueueRouteImport.update({
   id: '/queue',
   path: '/queue',
+  getParentRoute: () => LayoutWorkspaceRoute,
+} as any)
+const LayoutWorkspaceRepairsRoute = LayoutWorkspaceRepairsRouteImport.update({
+  id: '/repairs',
+  path: '/repairs',
   getParentRoute: () => LayoutWorkspaceRoute,
 } as any)
 const LayoutWorkspaceTechniciansRoute =
@@ -145,12 +163,15 @@ export interface FileRoutesByFullPath {
   '/app': typeof LayoutAppRoute
   '/appointments': typeof LayoutAppointmentsRouteWithChildren
   '/items': typeof LayoutItemsRoute
+  '/quotes': typeof LayoutQuotesRoute
   '/settings': typeof LayoutSettingsRoute
   '/workspace': typeof LayoutWorkspaceRouteWithChildren
   '/appointments/$appointmentId': typeof LayoutAppointmentsAppointmentIdRoute
   '/workspace/appointments': typeof LayoutWorkspaceAppointmentsRoute
   '/workspace/customers': typeof LayoutWorkspaceCustomersRoute
+  '/workspace/intake': typeof LayoutWorkspaceIntakeRoute
   '/workspace/queue': typeof LayoutWorkspaceQueueRoute
+  '/workspace/repairs': typeof LayoutWorkspaceRepairsRoute
   '/workspace/technicians': typeof LayoutWorkspaceTechniciansRoute
   '/appointments/': typeof LayoutAppointmentsIndexRoute
   '/workspace/': typeof LayoutWorkspaceIndexRoute
@@ -165,11 +186,14 @@ export interface FileRoutesByTo {
   '/admin': typeof LayoutAdminRoute
   '/app': typeof LayoutAppRoute
   '/items': typeof LayoutItemsRoute
+  '/quotes': typeof LayoutQuotesRoute
   '/settings': typeof LayoutSettingsRoute
   '/appointments/$appointmentId': typeof LayoutAppointmentsAppointmentIdRoute
   '/workspace/appointments': typeof LayoutWorkspaceAppointmentsRoute
   '/workspace/customers': typeof LayoutWorkspaceCustomersRoute
+  '/workspace/intake': typeof LayoutWorkspaceIntakeRoute
   '/workspace/queue': typeof LayoutWorkspaceQueueRoute
+  '/workspace/repairs': typeof LayoutWorkspaceRepairsRoute
   '/workspace/technicians': typeof LayoutWorkspaceTechniciansRoute
   '/appointments': typeof LayoutAppointmentsIndexRoute
   '/workspace': typeof LayoutWorkspaceIndexRoute
@@ -187,12 +211,15 @@ export interface FileRoutesById {
   '/_layout/app': typeof LayoutAppRoute
   '/_layout/appointments': typeof LayoutAppointmentsRouteWithChildren
   '/_layout/items': typeof LayoutItemsRoute
+  '/_layout/quotes': typeof LayoutQuotesRoute
   '/_layout/settings': typeof LayoutSettingsRoute
   '/_layout/workspace': typeof LayoutWorkspaceRouteWithChildren
   '/_layout/appointments/$appointmentId': typeof LayoutAppointmentsAppointmentIdRoute
   '/_layout/workspace/appointments': typeof LayoutWorkspaceAppointmentsRoute
   '/_layout/workspace/customers': typeof LayoutWorkspaceCustomersRoute
+  '/_layout/workspace/intake': typeof LayoutWorkspaceIntakeRoute
   '/_layout/workspace/queue': typeof LayoutWorkspaceQueueRoute
+  '/_layout/workspace/repairs': typeof LayoutWorkspaceRepairsRoute
   '/_layout/workspace/technicians': typeof LayoutWorkspaceTechniciansRoute
   '/_layout/appointments/': typeof LayoutAppointmentsIndexRoute
   '/_layout/workspace/': typeof LayoutWorkspaceIndexRoute
@@ -210,12 +237,15 @@ export interface FileRouteTypes {
     | '/app'
     | '/appointments'
     | '/items'
+    | '/quotes'
     | '/settings'
     | '/workspace'
     | '/appointments/$appointmentId'
     | '/workspace/appointments'
     | '/workspace/customers'
+    | '/workspace/intake'
     | '/workspace/queue'
+    | '/workspace/repairs'
     | '/workspace/technicians'
     | '/appointments/'
     | '/workspace/'
@@ -230,11 +260,14 @@ export interface FileRouteTypes {
     | '/admin'
     | '/app'
     | '/items'
+    | '/quotes'
     | '/settings'
     | '/appointments/$appointmentId'
     | '/workspace/appointments'
     | '/workspace/customers'
+    | '/workspace/intake'
     | '/workspace/queue'
+    | '/workspace/repairs'
     | '/workspace/technicians'
     | '/appointments'
     | '/workspace'
@@ -251,12 +284,15 @@ export interface FileRouteTypes {
     | '/_layout/app'
     | '/_layout/appointments'
     | '/_layout/items'
+    | '/_layout/quotes'
     | '/_layout/settings'
     | '/_layout/workspace'
     | '/_layout/appointments/$appointmentId'
     | '/_layout/workspace/appointments'
     | '/_layout/workspace/customers'
+    | '/_layout/workspace/intake'
     | '/_layout/workspace/queue'
+    | '/_layout/workspace/repairs'
     | '/_layout/workspace/technicians'
     | '/_layout/appointments/'
     | '/_layout/workspace/'
@@ -351,6 +387,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutItemsRouteImport
       parentRoute: typeof LayoutRoute
     }
+    '/_layout/quotes': {
+      id: '/_layout/quotes'
+      path: '/quotes'
+      fullPath: '/quotes'
+      preLoaderRoute: typeof LayoutQuotesRouteImport
+      parentRoute: typeof LayoutRoute
+    }
     '/_layout/settings': {
       id: '/_layout/settings'
       path: '/settings'
@@ -400,11 +443,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutWorkspaceCustomersRouteImport
       parentRoute: typeof LayoutWorkspaceRoute
     }
+    '/_layout/workspace/intake': {
+      id: '/_layout/workspace/intake'
+      path: '/intake'
+      fullPath: '/workspace/intake'
+      preLoaderRoute: typeof LayoutWorkspaceIntakeRouteImport
+      parentRoute: typeof LayoutWorkspaceRoute
+    }
     '/_layout/workspace/queue': {
       id: '/_layout/workspace/queue'
       path: '/queue'
       fullPath: '/workspace/queue'
       preLoaderRoute: typeof LayoutWorkspaceQueueRouteImport
+      parentRoute: typeof LayoutWorkspaceRoute
+    }
+    '/_layout/workspace/repairs': {
+      id: '/_layout/workspace/repairs'
+      path: '/repairs'
+      fullPath: '/workspace/repairs'
+      preLoaderRoute: typeof LayoutWorkspaceRepairsRouteImport
       parentRoute: typeof LayoutWorkspaceRoute
     }
     '/_layout/workspace/technicians': {
@@ -433,7 +490,9 @@ const LayoutAppointmentsRouteWithChildren =
 interface LayoutWorkspaceRouteChildren {
   LayoutWorkspaceAppointmentsRoute: typeof LayoutWorkspaceAppointmentsRoute
   LayoutWorkspaceCustomersRoute: typeof LayoutWorkspaceCustomersRoute
+  LayoutWorkspaceIntakeRoute: typeof LayoutWorkspaceIntakeRoute
   LayoutWorkspaceQueueRoute: typeof LayoutWorkspaceQueueRoute
+  LayoutWorkspaceRepairsRoute: typeof LayoutWorkspaceRepairsRoute
   LayoutWorkspaceTechniciansRoute: typeof LayoutWorkspaceTechniciansRoute
   LayoutWorkspaceIndexRoute: typeof LayoutWorkspaceIndexRoute
 }
@@ -441,7 +500,9 @@ interface LayoutWorkspaceRouteChildren {
 const LayoutWorkspaceRouteChildren: LayoutWorkspaceRouteChildren = {
   LayoutWorkspaceAppointmentsRoute: LayoutWorkspaceAppointmentsRoute,
   LayoutWorkspaceCustomersRoute: LayoutWorkspaceCustomersRoute,
+  LayoutWorkspaceIntakeRoute: LayoutWorkspaceIntakeRoute,
   LayoutWorkspaceQueueRoute: LayoutWorkspaceQueueRoute,
+  LayoutWorkspaceRepairsRoute: LayoutWorkspaceRepairsRoute,
   LayoutWorkspaceTechniciansRoute: LayoutWorkspaceTechniciansRoute,
   LayoutWorkspaceIndexRoute: LayoutWorkspaceIndexRoute,
 }
@@ -455,6 +516,7 @@ interface LayoutRouteChildren {
   LayoutAppRoute: typeof LayoutAppRoute
   LayoutAppointmentsRoute: typeof LayoutAppointmentsRouteWithChildren
   LayoutItemsRoute: typeof LayoutItemsRoute
+  LayoutQuotesRoute: typeof LayoutQuotesRoute
   LayoutSettingsRoute: typeof LayoutSettingsRoute
   LayoutWorkspaceRoute: typeof LayoutWorkspaceRouteWithChildren
 }
@@ -464,6 +526,7 @@ const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutAppRoute: LayoutAppRoute,
   LayoutAppointmentsRoute: LayoutAppointmentsRouteWithChildren,
   LayoutItemsRoute: LayoutItemsRoute,
+  LayoutQuotesRoute: LayoutQuotesRoute,
   LayoutSettingsRoute: LayoutSettingsRoute,
   LayoutWorkspaceRoute: LayoutWorkspaceRouteWithChildren,
 }

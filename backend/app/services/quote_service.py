@@ -7,6 +7,7 @@ from fastapi import HTTPException, status
 from sqlmodel import Session, select
 
 from app.core.logging import get_logger
+from app.services.access_service import check_appointment_access
 from app.models import (
     Appointment,
     Customer,
@@ -234,6 +235,7 @@ def create_repair_quotation(
         # 4. Sinh mã báo giá
         quote_number = generate_quote_number(session, appointment)
 
+        check_appointment_access(session, current_user, appointment)
         # 5. Khởi tạo đối tượng Quote
         quote = Quote(
             id=uuid.uuid4(),
@@ -350,6 +352,7 @@ def accept_quotation(
                 detail=f"Báo giá đang ở trạng thái '{quote.status}', không thể duyệt",
             )
 
+        check_appointment_access(session, current_user, appointment)
         # 4. Kiểm tra phân quyền: Nhân viên hoặc Khách hàng sở hữu
         is_staff_or_admin = current_user.is_superuser or (
             (current_user.role or "").lower()
