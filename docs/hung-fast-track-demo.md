@@ -1,5 +1,7 @@
 # FixCare — Bàn giao kỹ thuật và demo
 
+> Readiness mới nhất: [checklist demo chi tiết](hung-demo-readiness.md), gồm điều kiện thực tế, từng vai trò/route/thao tác/kết quả và ZIP bàn giao. Backend/PostgreSQL/Vite chạy được nhưng chưa có dịch vụ active, bốn tài khoản demo riêng, hồ sơ kỹ thuật và ca AVAILABLE; chưa đủ điều kiện demo ghi PostgreSQL. Hai hotfix intake scope và phân công thiếu phone đã được kiểm thử. Quyền technician xem toàn bộ danh sách khách giữ nguyên theo xác nhận của người dùng.
+
 ## Khởi động trên PowerShell
 
 Giữ cấu hình local đang hoạt động. Không reset, seed hoặc chạy migration để chuẩn bị demo.

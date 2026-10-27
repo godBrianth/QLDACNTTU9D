@@ -1,5 +1,7 @@
 # FixCare — Fast-track progress
 
+> Demo readiness 27/10/2026: môi trường PASS; dữ liệu PostgreSQL chưa sẵn sàng (dịch vụ active, 4 role riêng, linked technician và ca AVAILABLE đều 0). Không tự tạo dữ liệu. Hai lỗi thực tế intake thiếu scope và phân công thiếu phone đã sửa; Backend 58/58, Playwright 22/22 PASS. Giữ chính sách technician xem toàn bộ catalog khách theo xác nhận người dùng. Hướng dẫn nhập qua UI, bước demo và đóng ZIP sạch tại [readiness](hung-demo-readiness.md). Không tự commit/push trong lượt này; thay đổi mới nằm trong working tree và bản ZIP.
+
 Cập nhật 27/10/2026. Bảng đầy đủ giữ nguyên 108 UID/WBS/Sprint/tên/thứ tự Excel: [status](hung-fast-track-status.md). Bằng chứng: [verification](hung-fast-track-verification.md). Khởi động, demo và bàn giao: [demo](hung-fast-track-demo.md).
 
 ## Kết quả hiện tại

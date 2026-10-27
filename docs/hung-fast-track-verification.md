@@ -1,5 +1,13 @@
 # FixCare — Bằng chứng kiểm thử fast-track
 
+## Bổ sung demo readiness — 27/10/2026
+
+- Chạy lại 5 module Backend có liên quan với `FIXCARE_TEST_SQLITE=1`: **58/58 PASS**, exit 0, 8,29s. Gồm test intake unassigned technician bị 403 (trước vá nhận 201), quyền catalog theo xác nhận người dùng và API chain có phân công sau tiếp nhận, chẩn đoán trước báo giá, kỹ thuật viên không có phone.
+- Playwright `demo-readiness.spec.ts`, booking, appointments, operations: **22/22 PASS**, exit 0, khoảng 1 phút; `--no-deps --workers=1 --timeout=20000 --global-timeout=180000`. Spec readiness chỉ cho request GET vào API local, các spec còn lại mock API. Không chạy auth setup/không tạo phiên đăng nhập hoặc nghiệp vụ thật trong lượt readiness.
+- TypeScript/build/Biome/Ruff/diff check PASS. Không đổi schema/generated client. Đã khởi động lại đúng Backend local để nạp hotfix; OpenAPI vẫn 70 path / 93 operation / 0 duplicate.
+- Script `scripts/check_demo_readiness.py` kết nối PostgreSQL trong transaction READ ONLY, báo dịch vụ/4 role riêng/linked technician/ca AVAILABLE đều 0. Tài khoản role customer + superuser flag có 1; giữ nguyên.
+- Chi tiết, lệnh và dữ liệu cần chuẩn bị: [readiness](hung-demo-readiness.md). Số liệu fast-track phía dưới là lịch sử, không cộng các lượt trùng nhau thành tổng testcase mới. E2E ghi PostgreSQL vẫn BLOCKED, không chuyển UID E2E sang DONE.
+
 Ngày chạy: 27/10/2026, Windows/PowerShell. Không ghi test nghiệp vụ vào PostgreSQL. Mock chỉ tồn tại trong test; mã sản phẩm gọi generated services thật.
 
 ## Kết quả cuối và exit code
